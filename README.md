@@ -1,78 +1,38 @@
-# simple-react-app
+# B-Line
 
-[![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
+Prototype bus route application for [WebInt 2018Fall](http://www.eurecom.fr/en/course/WebInt-2018Fall) at EURECOM
 
-But you still get it.
+Our group consists of:
 
-Simple base app with react, react-router v4, hot-reload &amp; sass.
+- [Ina Rekk Bjørnestad](https://github.com/iinus)
+- [Hannah Miklin](https://github.com/hffmiklin)
+- [Anders Larsen](https://github.com/sardred)
 
-`npm i -g simple-react-app` to install the package.
+## Getting started
 
-`simple-react-app folderName` to start the boilerplate into `folderName` folder.
+`git clone git@github.com:sardred/b-line.git` to clone the repository with Git. Here's a [guide](https://help.github.com/articles/connecting-to-github-with-ssh/) to connecting with SSH
 
-Or if you're using `npm@5.2.0` or above, you can simply run `npx simple-react-app folderName`, without the need to install the package globally.
+`cd b-line` navigate to the freshly clones repository
 
-## What is this
+`npm install` install dependencies with npm
 
-This is a base project that you can use to jumpstart your react apps, it works similarly to create-react-app, just install the package globally and use it to create as many projects as you want (check How to install for detailed instructions).
-It includes the last react spec as of today 01/03/2018, and uses react-router v4 to handle routes.
-Style is handled by sass/scss, Bundle is generated with webpack 4.
-NB: this is just front end, you can use whatever backend language you are most comfortable with.
+`npm start` start the dev server
 
-## How to install
-
-You can use both npm or yarn, the version I used to create this project are:
-
-```
-$ node -v ; npm -v ; yarn -v
-v8.8.1
-5.4.2
-1.2.1
-```
-
-If you just freshly installed yarn/npm you are good to go, else you might need to upgrade, for npm I use `n`
-
-```
-npm install -g n
-```
-
-to install it and after that select at least the stable version (what I used).
-
-```
-n stable
-```
-
-and now you have the latest stable version of node&npm.
-
-`npm i -g simple-react-app` to install this package globally, from there you will be able to jumpstart as many boilerplates as you wish.
-
-`simple-react-app folderName` to create a react boilerplate on the `folderName` folder. By default all dependencies are already installed, just `cd folderName` and start hacking.
-
-`yarn start`/`npm start` to start dev server with hot reload, it's live on `localhost:3000`.
-
-`yarn run build`/`npm run build` to build prod bundle, it includes both treeshaking and uglify to optimize the code as much as possible.
-
-`yarn test`/`npm test` run the tests with Jest and Enzyme, by default the test included only check for the correct render of base components & routes, all are passing.
+You are now ready to develop! The server is available at `localhost:3000` in your browser, with hot reloading and everything!
 
 ## Project structure
 
-The boilerplate structure and files are the same as this repo minus the _bin_ folder, everything else is exactly the same.
-
-```
+```none
 *root*
 |
 ├── */src/*
-│   ├── */assets/* where images and stuff are stored
-│   ├── */containers/* react-router jsx pages
+│   ├── */assets/* where images are stored
+│   ├── */components/* jsx components
 │   ├── *App.jsx* main layout
 │   ├── *Routes.jsx* front-end routes
 │   ├── *index.html* entry point
 │   ├── *index.jsx* javascript entry point
-│   ├── *style.scss* styling
-│   └── */tests/* contains test environment (Jest + Enzyme)
-│       ├── */__mock__/* contains setup to provide a valid path for imports
-│       ├── */_tests__/* the actual tests
-│       └── *setup.js* setup for enzyme for react 16
+│   └── *style.scss* styling
 ├── *package.json* the whole package.json with every dependency and script, nothing is kept hidden
 ├── *.eslintrc* eslint config
 ├── *.babelrc* babel config (polyfills)
@@ -80,16 +40,10 @@ The boilerplate structure and files are the same as this repo minus the _bin_ fo
 └── *README.md* this file
 ```
 
-## Tests
+## Linting
 
-The testing environment is written in Jest and Enzyme.
-The included tests are very basic and only check the proper render of base components + routes, there are no snapshot tests, I did not feel they were needed being the components really basic, at the first change they would need to be updated, imho setting the wrong approach of _"hey tests are broken, let's regenerate snapshots again"_.
-While still basic, the default tests are easy to manage and expand, providing a smoother curve into testing with JavaScript and React.
+This project follows the [AirBnB Javascript](https://github.com/airbnb/javascript) style guide. Check your favorite editor for a plugin or extension for ESLint.
 
-## Eslint
+## Credit
 
-This project uses AirBnB Javascript specs so you can write error-free react and javasctipt code, if you use Visual Studio Code, you can install eslint from the extension tab to activate this function, other editors just google _name of the editor + eslint_ you will find how to enable it for your editor.
-
-## How to contribute
-
-I wrote a [small guide](https://medium.com/@francesco.agnoletto/how-to-not-f-up-your-local-files-with-git-part-1-e0756c88fd3c) on how to contribute and the common etiquette to follow.
+Credits to [Kornil](https://github.com/Kornil) for [simple-react-app](https://github.com/Kornil/simple-react-app) so we didn't have to spend hours setting up webpack for a nice development environment. We've modified the structure from there to make it even simpler.
