@@ -11,7 +11,7 @@ const Header = () => (
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Search</Link>
         </li>
         <li>
           <Link to="/settings">Settings</Link>

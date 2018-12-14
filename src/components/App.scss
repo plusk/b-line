@@ -1,17 +1,21 @@
 .AppContainer {
   position: absolute;
   z-index: 1000;
-  display: flex;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  flex-direction: column;
-  background: white;
   max-width: 500px;
+  min-width: 250px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .AppContent {
-  padding: 20px;
+  padding: 40px 20px;
+  background: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .leaflet-container {

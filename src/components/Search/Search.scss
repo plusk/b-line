@@ -1,0 +1,22 @@
+$underlineHeight: 2px;
+
+.SearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchInput {
+  position: relative;
+  border-bottom: $underlineHeight solid;
+  padding: 10px;
+  transition: border 0.2s;
+
+  &:hover {
+    border-color: #ffc70f;
+  }
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
