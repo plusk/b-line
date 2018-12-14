@@ -1,0 +1,10 @@
+.buttonContainer {
+  color: white;
+  border-radius: 4px;
+  background: #222;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #444;
+  }
+}

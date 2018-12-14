@@ -28,11 +28,15 @@ You are now ready to develop! The server is available at `localhost:3000` in you
 ├── */src/*
 │   ├── */assets/* where images are stored
 │   ├── */components/* jsx components
-│   ├── *App.jsx* main layout
-│   ├── *Routes.jsx* front-end routes
-│   ├── *index.html* entry point
-│   ├── *index.jsx* javascript entry point
-│   └── *style.scss* styling
+│   |   ├── *App.jsx* main layout
+│   |   ├── *App.scss* main layout styling
+│   |   ├── */Home/* example component
+│   |   |   ├── *Home.jsx* component definition
+│   |   |   └── *Home.scss* component styling
+│   ├── *Routes.jsx* front-end routes (add a Route for each new page)
+│   ├── *index.html* entry point (no changes needed)
+│   ├── *index.jsx* javascript entry point (no changes needed)
+│   └── *global.scss* styling for the application as a whole
 ├── *package.json* the whole package.json with every dependency and script, nothing is kept hidden
 ├── *.eslintrc* eslint config
 ├── *.babelrc* babel config (polyfills)
@@ -47,3 +51,5 @@ This project follows the [AirBnB Javascript](https://github.com/airbnb/javascrip
 ## Credit
 
 Credits to [Kornil](https://github.com/Kornil) for [simple-react-app](https://github.com/Kornil/simple-react-app) so we didn't have to spend hours setting up webpack for a nice development environment. We've modified the structure from there to make it even simpler.
+
+As noted in `reset.scss`, credits to Eric Meyer for [reset-styling](http://meyerweb.com/eric/tools/css/reset/) for the sake of reducing browser differences.

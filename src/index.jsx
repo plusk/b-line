@@ -5,29 +5,34 @@
   eslint has no way to tell that and outputs an error
 */
 
-// react dependencies
-import React from 'react';
-import ReactDOM from 'react-dom';
-// hot reload for development
-import { AppContainer } from 'react-hot-loader';
+import React from "react";
+import ReactDOM from "react-dom";
+import { AppContainer } from "react-hot-loader";
+import { BrowserRouter } from "react-router-dom";
 
-import App from './App';
+import App from "./components/App";
 
-import './style.scss';
+import "./global.scss";
 
-const root = document.getElementById('root');
+const root = document.getElementById("root");
 
-const render = (Component) => {
+const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <BrowserRouter>
+        <React.Fragment>
+          <Component />
+        </React.Fragment>
+      </BrowserRouter>
     </AppContainer>,
-    root,
+    root
   );
 };
 
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./App', () => { render(App); });
+  module.hot.accept("./components/App", () => {
+    render(App);
+  });
 }

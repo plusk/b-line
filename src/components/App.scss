@@ -1,0 +1,30 @@
+.AppContainer {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.AppHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(to right, #cb356b, #bd3f32);
+}
+
+.AppHeaderHeading {
+  color: white;
+  font-size: 40px;
+  font-weight: 300;
+  align-self: flex-end;
+}
+
+.AppHeaderImage {
+  width: 100px;
+  height: 100%;
+}
+
+.AppContent {
+  padding: 20px;
+}
