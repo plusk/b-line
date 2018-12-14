@@ -53,3 +53,5 @@ This project follows the [AirBnB Javascript](https://github.com/airbnb/javascrip
 Credits to [Kornil](https://github.com/Kornil) for [simple-react-app](https://github.com/Kornil/simple-react-app) so we didn't have to spend hours setting up webpack for a nice development environment. We've modified the structure from there to make it even simpler.
 
 As noted in `reset.scss`, credits to Eric Meyer for [reset-styling](http://meyerweb.com/eric/tools/css/reset/) for the sake of reducing browser differences.
+
+Logo made by [Jamshid Xoliqulov](https://thenounproject.com/x.jamshid/) under Creative Commons

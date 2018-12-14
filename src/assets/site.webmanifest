@@ -1,0 +1,19 @@
+{
+    "name": "B-Line",
+    "short_name": "B-Line",
+    "icons": [
+        {
+            "src": "/src/assets/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/src/assets/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffc80d",
+    "background_color": "#ffc80d",
+    "display": "standalone"
+}
