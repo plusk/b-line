@@ -1,0 +1,22 @@
+.HeaderContainer {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 10px;
+  display: flex;
+  background: linear-gradient(to right, #cb356b, #bd3f32);
+}
+
+.HeaderLogo {
+  height: 50px;
+}
+
+.HeaderHeading {
+  color: white;
+  font-size: 40px;
+  font-weight: 300;
+}
