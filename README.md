@@ -55,3 +55,5 @@ Credits to [Kornil](https://github.com/Kornil) for [simple-react-app](https://gi
 As noted in `reset.scss`, credits to Eric Meyer for [reset-styling](http://meyerweb.com/eric/tools/css/reset/) for the sake of reducing browser differences.
 
 Logo made by [Jamshid Xoliqulov](https://thenounproject.com/x.jamshid/) under Creative Commons
+
+Icons made by Freepik from www.flaticon.com 
