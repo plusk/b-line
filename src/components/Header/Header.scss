@@ -6,18 +6,78 @@
   left: 0;
   z-index: 1000;
   box-sizing: border-box;
-  align-items: center;
   padding: 10px;
-  display: flex;
+  display: inline-grid;
+  grid-gap: 0;
+  grid-template-columns: 50px 130px 200px auto;
+  grid-template-rows: 75px;
   background: linear-gradient(to right, #ffc70f, #f2a50c);
 }
 
 .HeaderLogo {
+  grid-column-start: 1;
+  grid-column-end: 2;
   height: 50px;
 }
 
 .HeaderHeading {
+  grid-column-start: 2;
+  grid-column-end: 3;
   color: white;
   font-size: 40px;
   font-weight: 300;
+}
+
+.LinkContainer{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  line-height: 0;
+  height: 200px;
+  text-align: center;
+}
+
+.LinkContainer li{
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.HeaderLink {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+/* mouse over link */
+a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+/* selected link */
+a:active {
+  color: blue;
+  text-decoration: underline;
+}
+
+.Search { 
+  grid-column-start: 4;
+  grid-column-end: 5;
+  justify-self: end; 
+}
+
+.Search input { 
+  color: white;
+  background: #f2a50c;
+  border-bottom: 2px solid black;
+}
+
+.Search input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+}
+
+.Search .fa-icon { 
+  height: auto; 
+  width: auto; 
+  max-width: 16px; 
+  max-height: 16px;
 }
