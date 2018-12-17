@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Header.scss";
-import logo from "../../assets/React-icon.png";
+import logo from "../../assets/logo.svg";
 
 const Header = () => (
   <header className="HeaderContainer">
@@ -11,7 +11,7 @@ const Header = () => (
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">Search</Link>
         </li>
         <li>
           <Link to="/settings">Settings</Link>
