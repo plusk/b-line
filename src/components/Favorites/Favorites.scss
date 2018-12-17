@@ -1,46 +1,44 @@
-.wrapper {
-}
-
 .favorites-heading {
-    display: flex;
-    color: black;
-    font-size: 40px;
-    font-weight: 300;
-    margin-bottom: 15px;
+  display: flex;
+  color: black;
+  font-size: 40px;
+  font-weight: 300;
+  margin-bottom: 15px;
 }
 
-.address{ 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 15px;
-    color: white; }
-
-.address input { 
-    text-indent: 30px;
-    margin-bottom: 15px;
-    border-bottom:1px solid;
+.address {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 15px;
+  color: white;
 }
 
-.address .fa-icon { 
-    margin-bottom: 10px;
-    padding-bottom: 5px;
+.address input {
+  text-indent: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid;
+}
+
+.address .fa-icon {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 .address button {
-    background-color:  white;
-    border: 1.5px solid black;
-    color: black;
-    padding: 5px;
-    text-align: center;
-    font-size: 16px;
-    margin: 0;
-    border-radius: 2px;
-    display: block;
-  }
+  background-color: white;
+  border: 1.5px solid black;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  margin: 0;
+  border-radius: 2px;
+  display: block;
+}
 
 .address button:hover {
-    background-color:#cb356b;
-    color: white;
-  }
+  background-color: #cb356b;
+  color: white;
+}
