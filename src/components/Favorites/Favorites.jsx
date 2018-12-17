@@ -3,69 +3,54 @@ import "./Favorites.scss";
 import homeIcon from "../../assets/001-home.png";
 import workIcon from "../../assets/002-work.png";
 import schoolIcon from "../../assets/003-school.png";
-import plusIcon from "../../assets/004-more.png";
+import newIcon from "../../assets/004-more.png";
+
+import FavoriteField from "./FavoriteField";
 
 class Favorites extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      homeAddress: "",
-      workAddress: "",
-      campusAddress: "",
-      otherAddress: ""
+      home: "",
+      work: "",
+      school: "",
+      new: ""
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(param, event) {
-    this.setState({ param: event.target.param });
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
     return (
-      <div class="wrapper">
-        <h2 class="favorites-heading">Favorites</h2>
-        <div class="address">
-          <img class="fa fa-icon" src={homeIcon} alt="home" />
-          <input
-            type="text"
-            placeholder="Home address"
-            name="homeAddress"
-            onChange={e => this.handleChange(this.state.homeAddress, e)}
-            homeAddress={this.state.homeAddress}
-          />
-        </div>
-        <div class="address">
-          <img class="fa fa-icon" src={workIcon} alt="home" />
-          <input
-            type="text"
-            placeholder="Work address"
-            name="workAddress"
-            onChange={e => this.handleChange(this.state.workAddress, e)}
-            workAddress={this.state.workAddress}
-          />
-        </div>
-        <div class="address">
-          <img class="fa fa-icon" src={schoolIcon} alt="school" />
-          <input
-            type="text"
-            placeholder="Campus address"
-            name="campusAddress"
-            onChange={e => this.handleChange(this.state.campusAddress, e)}
-            campusAddress={this.state.campusAddress}
-          />
-        </div>
-        <div class="address">
-          <img class="fa fa-icon" src={plusIcon} alt="home" />
-          <input
-            type="text"
-            placeholder="New favorite"
-            name="otherAddress"
-            onChange={e => this.handleChange(this.state.otherAddress, e)}
-            otherAddress={this.state.otherAddress}
-          />
-        </div>
-        <div class="address">
+      <div>
+        <h2 className="favorites-heading">Favorites</h2>
+        <FavoriteField
+          value={this.state.home}
+          name="home"
+          icon={homeIcon}
+          handleChange={e => this.handleChange(e)}
+        />
+        <FavoriteField
+          value={this.state.work}
+          name="work"
+          icon={workIcon}
+          handleChange={e => this.handleChange(e)}
+        />
+        <FavoriteField
+          value={this.state.school}
+          name="school"
+          icon={schoolIcon}
+          handleChange={e => this.handleChange(e)}
+        />
+        <FavoriteField
+          value={this.state.new}
+          name="new"
+          icon={newIcon}
+          handleChange={e => this.handleChange(e)}
+        />
+        <div className="address">
           <button type="submit">Save</button>
         </div>
       </div>

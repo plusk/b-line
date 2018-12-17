@@ -15,17 +15,6 @@
   color: white;
 }
 
-.address input {
-  text-indent: 30px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid;
-}
-
-.address .fa-icon {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-}
-
 .address button {
   background-color: white;
   border: 1.5px solid black;
@@ -41,4 +30,15 @@
 .address button:hover {
   background-color: #cb356b;
   color: white;
+}
+
+.FavoriteField {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  input::placeholder {
+    text-transform: capitalize;
+  }
 }

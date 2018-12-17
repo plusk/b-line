@@ -6,3 +6,14 @@ body {
   color: #333;
   font-family: "Source Sans Pro", sans-serif;
 }
+
+input[type="text"],
+input[type="search"] {
+  border-bottom: 2px solid;
+  padding: 10px;
+  transition: border 0.2s;
+
+  &:hover {
+    border-color: #ffc70f;
+  }
+}
