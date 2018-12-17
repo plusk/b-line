@@ -24,8 +24,8 @@ class Favorites extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2 className="favorites-heading">Favorites</h2>
+      <div className="FavoritesContainer">
+        <h2 className="FavoritesHeading">Favorites</h2>
         <FavoriteField
           value={this.state.home}
           name="home"
@@ -50,9 +50,7 @@ class Favorites extends React.Component {
           icon={newIcon}
           handleChange={e => this.handleChange(e)}
         />
-        <div className="address">
-          <button type="submit">Save</button>
-        </div>
+        <button className="FavoritesSubmit">Save</button>
       </div>
     );
   }

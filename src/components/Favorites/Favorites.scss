@@ -1,42 +1,30 @@
-.favorites-heading {
+.FavoritesContainer {
   display: flex;
-  color: black;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FavoritesContainer > * + * {
+  margin-top: 20px;
+}
+
+.FavoritesHeading {
+  align-self: flex-start;
   font-size: 40px;
   font-weight: 300;
-  margin-bottom: 15px;
 }
 
-.address {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 15px;
-  color: white;
-}
-
-.address button {
-  background-color: white;
-  border: 1.5px solid black;
-  color: black;
-  padding: 5px;
-  text-align: center;
-  font-size: 16px;
-  margin: 0;
-  border-radius: 2px;
-  display: block;
-}
-
-.address button:hover {
-  background-color: #cb356b;
-  color: white;
+.FavoritesSubmit {
+  align-self: flex-end;
 }
 
 .FavoriteField {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
+
+  input {
+    margin-left: 10px;
+  }
 
   input::placeholder {
     text-transform: capitalize;
