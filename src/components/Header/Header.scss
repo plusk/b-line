@@ -1,3 +1,5 @@
+@import "../../palette.scss";
+
 .HeaderContainer {
   position: absolute;
   width: 100%;
@@ -9,7 +11,11 @@
   align-items: center;
   padding: 10px;
   display: flex;
-  background: linear-gradient(to right, #ffc70f, #f2a50c);
+  background: linear-gradient(
+    to right,
+    $accent,
+    adjust_hue(darken($accent, 5%), -10deg)
+  );
 }
 
 .HeaderLogo {

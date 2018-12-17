@@ -1,8 +1,40 @@
 @import "./reset.scss";
+@import "./palette.scss";
 
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700");
 
 body {
-  color: #333;
+  color: $dark;
   font-family: "Source Sans Pro", sans-serif;
+}
+
+button {
+  background: $dark;
+  color: $light;
+  padding: 10px;
+  font-size: inherit;
+  border-radius: 2px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: lighten($dark, 20%);
+    cursor: pointer;
+  }
+}
+
+input[type="text"],
+input[type="search"] {
+  border-bottom: 2px solid;
+  padding: 10px;
+  transition: border 0.2s;
+
+  &:hover,
+  &:focus {
+    border-color: $accent;
+  }
+
+  &:focus {
+    outline-width: 2px;
+    outline-style: solid;
+  }
 }
