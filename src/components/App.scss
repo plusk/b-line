@@ -12,10 +12,10 @@
 }
 
 .AppContent {
-  padding: 40px 20px;
+  padding: 20px;
   background: white;
-  display: flex;
-  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .leaflet-container {

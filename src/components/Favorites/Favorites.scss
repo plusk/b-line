@@ -1,0 +1,32 @@
+.FavoritesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FavoritesContainer > * + * {
+  margin-top: 20px;
+}
+
+.FavoritesHeading {
+  align-self: flex-start;
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.FavoritesSubmit {
+  align-self: flex-end;
+}
+
+.FavoriteField {
+  display: flex;
+  align-items: center;
+
+  input {
+    margin-left: 10px;
+  }
+
+  input::placeholder {
+    text-transform: capitalize;
+  }
+}

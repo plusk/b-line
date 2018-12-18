@@ -9,20 +9,25 @@ const Header = () => (
   <header className="HeaderContainer">
     <img className="HeaderLogo" src={logo} alt="logo" />
     <h1 className="HeaderHeading">B-Line</h1>
-    <nav className="LinkContainer">
-      <ul>
-        <li>
-          <Link className="HeaderLink" to="/">Search</Link>
-        </li>
-        <li>
-          <Link className="HeaderLink" to="/settings">Settings</Link>
-        </li>
-      </ul>
+    <nav className="HeaderNav">
+      <Link className="HeaderLink" to="/">
+        Search
+      </Link>
+      <Link className="HeaderLink" to="/settings">
+        Settings
+      </Link>
+      <Link className="HeaderLink" to="/favorites">
+        Favorites
+      </Link>
     </nav>
-    <div className="Search">
-      <img className="fa fa-icon" src={searchIcon} alt="searchIcon" />
-      <input type="text" name="search" placeholder="What can we help you with?" />
-    </div> 
+    <div className="HeaderSearch">
+      <img className="HeaderSearchIcon" src={searchIcon} alt="searchIcon" />
+      <input
+        type="search"
+        className="HeaderSearchInput"
+        placeholder="Need help?"
+      />
+    </div>
   </header>
 );
 
