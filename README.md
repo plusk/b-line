@@ -12,13 +12,15 @@ Our group consists of:
 
 `git clone git@github.com:sardred/b-line.git` to clone the repository with Git. Here's a [guide](https://help.github.com/articles/connecting-to-github-with-ssh/) to connecting with SSH
 
-`cd b-line` navigate to the freshly clones repository
+`cd b-line` navigate to the freshly cloned repository
 
 `npm install` install dependencies with npm
 
 `npm start` start the dev server
 
 You are now ready to develop! The server is available at `localhost:3000` in your browser, with hot reloading and everything!
+
+If desired, `npm run lint` will lint and fix files
 
 ## Project structure
 
@@ -56,4 +58,4 @@ As noted in `reset.scss`, credits to Eric Meyer for [reset-styling](http://meyer
 
 Logo made by [Jamshid Xoliqulov](https://thenounproject.com/x.jamshid/) under Creative Commons
 
-Icons made by Freepik from www.flaticon.com 
+Icons made by Freepik from www.flaticon.com
