@@ -1,29 +1,68 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <page-header/>
+    <page-content/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import PageHeader from "@/components/PageHeader.vue";
+import PageContent from "@/components/PageContent.vue";
+
+export default {
+  components: {
+    PageHeader,
+    PageContent
   }
+};
+</script>
+
+<style lang="scss">
+@import "@/common/reset.scss";
+@import "@/common/palette.scss";
+
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,600,700");
+
+body {
+  color: $dark;
+  font-family: "Lato", sans-serif;
+  background: #fafafa;
+}
+
+button {
+  background: $dark;
+  color: $light;
+  padding: 10px;
+  font-size: inherit;
+  border-radius: 2px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: lighten($dark, 20%);
+    cursor: pointer;
+  }
+}
+
+input[type="text"],
+input[type="search"] {
+  border-bottom: 2px solid;
+  padding: 10px;
+  transition: border 0.2s;
+
+  &:hover,
+  &:focus {
+    border-color: $accent;
+  }
+
+  &:focus {
+    outline-width: 2px;
+    outline-style: solid;
+  }
+}
+
+.leaflet-container {
+  width: 100%;
+  top: 75px;
+  height: calc(100vh - 75px);
 }
 </style>
