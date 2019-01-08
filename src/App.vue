@@ -1,16 +1,19 @@
 <template>
   <div id="app">
+    <page-map/>
     <page-header/>
     <page-content/>
   </div>
 </template>
 
 <script>
+import PageMap from "@/components/PageMap.vue";
 import PageHeader from "@/components/PageHeader.vue";
 import PageContent from "@/components/PageContent.vue";
 
 export default {
   components: {
+    PageMap,
     PageHeader,
     PageContent
   }
@@ -22,6 +25,12 @@ export default {
 @import "@/common/palette.scss";
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,600,700");
+
+html,
+body,
+#app {
+  height: 100%;
+}
 
 body {
   color: $dark;
@@ -58,11 +67,5 @@ input[type="search"] {
     outline-width: 2px;
     outline-style: solid;
   }
-}
-
-.leaflet-container {
-  width: 100%;
-  top: 75px;
-  height: calc(100vh - 75px);
 }
 </style>
