@@ -20,6 +20,8 @@ Our group consists of:
 
 You are now ready to develop! The server is available at `localhost:3000` in your browser, with hot reloading and everything!
 
+For map routing, you need to get a [Mapbox API key](https://www.mapbox.com/signup/). It's limited to a couple of thousand requests per day. When you have your key, make a file named `.env.local` at the root of the project, then add the following line to the file: `VUE_APP_API_KEY="INSERT YOUR KEY HERE"`
+
 If desired, `npm run lint` will lint and fix files
 
 ## Project structure
