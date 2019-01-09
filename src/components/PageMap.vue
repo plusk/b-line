@@ -49,7 +49,10 @@ export default {
 
     L.Routing.control({
       waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
-      router: L.Routing.mapbox(process.env.VUE_APP_API_KEY)
+      router: L.Routing.mapbox(process.env.VUE_APP_API_KEY),
+      lineOptions: {
+        addWaypoints: false
+      }
     }).addTo(map);
   },
   methods: {
