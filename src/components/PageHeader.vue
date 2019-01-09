@@ -1,6 +1,19 @@
-@import "../../palette.scss";
+<template>
+  <header>
+    <img class="logo" src="../assets/logo.svg" alt="logo">
+    <h1>B-Line</h1>
+    <nav>
+      <router-link class="route" to="/">Home</router-link>
+      <router-link class="route" to="/favorites">Favorites</router-link>
+      <router-link class="route" to="/Settings">Settings</router-link>
+    </nav>
+  </header>
+</template>
 
-.HeaderContainer {
+<style lang="scss" scoped>
+@import "@/common/palette.scss";
+
+header {
   display: flex;
   align-items: center;
   position: absolute;
@@ -18,26 +31,26 @@
   );
 }
 
-.HeaderLogo {
+img {
   height: 50px;
 }
 
-.HeaderHeading {
+h1 {
   color: white;
   font-size: 40px;
   font-weight: 300;
   user-select: none;
 }
 
-.HeaderNav {
-  margin-left: 20px;
+nav {
+  margin-left: auto;
 
   & > * + * {
     margin-left: 15px;
   }
 }
 
-.HeaderLink {
+.route {
   display: inline-block;
   color: white;
   font-size: 20px;
@@ -59,7 +72,8 @@
     transition: transform 0.1s;
   }
 
-  &:hover {
+  &:hover,
+  &.router-link-exact-active {
     &::after {
       transform: scaleX(1);
     }
@@ -70,29 +84,4 @@
     outline-style: solid;
   }
 }
-
-.HeaderSearch {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  color: white;
-}
-
-.HeaderSearchIcon {
-  max-width: 16px;
-}
-
-.HeaderSearchInput {
-  background: none;
-  margin-left: 5px;
-  border-bottom: 2px solid;
-  width: 200px;
-
-  &::placeholder {
-    color: transparentize($dark, 0.25);
-  }
-
-  &[type="search"]:hover {
-    border-color: transparentize($dark, 0.25);
-  }
-}
+</style>

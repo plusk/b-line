@@ -1,4 +1,14 @@
-.AppContainer {
+<template>
+  <div class="wrapper">
+    <main>
+      <router-view/>
+    </main>
+  </div>
+</template>
+
+
+<style lang="scss" scoped>
+.wrapper {
   position: absolute;
   z-index: 1000;
   top: 50%;
@@ -11,15 +21,10 @@
   box-sizing: border-box;
 }
 
-.AppContent {
+main {
   padding: 20px;
   background: white;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
-
-.leaflet-container {
-  width: 100%;
-  top: 75px;
-  height: calc(100vh - 75px);
-}
+</style>
