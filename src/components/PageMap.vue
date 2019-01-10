@@ -79,9 +79,9 @@ export default {
 @import "@/common/constants.scss";
 
 .vue2leaflet-map {
-  top: $pageHeaderHeight;
+  top: $headerHeight;
   width: 100%;
-  height: calc(100% - #{$pageHeaderHeight}) !important;
+  height: calc(100% - #{$headerHeight}) !important;
 }
 
 .leaflet-control-container {
@@ -90,8 +90,9 @@ export default {
 
 @media only screen and (max-width: 500px) {
   .vue2leaflet-map {
-    height: calc(100% - 50px - 300px) !important;
-    top: 350px;
+    top: 0;
+    z-index: -1;
+    height: 50vh !important;
   }
 }
 </style>

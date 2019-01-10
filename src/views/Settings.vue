@@ -42,40 +42,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/common/constants.scss";
+@import "@/common/card.scss";
 
 .wrapper {
-  position: absolute;
-  left: 0;
-  top: $pageHeaderHeight;
-  width: 100%;
-  height: calc(100% - #{$pageHeaderHeight});
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  z-index: 1000;
-  box-sizing: border-box;
-  background: #f2f2f2;
-}
-
-.container {
-  width: 100%;
-  max-width: 500px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h2 {
-  font-size: 40px;
-  font-weight: 300;
+  @extend %card;
 }
 
 .setting {
-  margin-top: 10px;
   h3 {
     font-size: 20px;
   }
@@ -88,13 +61,6 @@ h2 {
 
   & > * + * {
     margin-top: 10px;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .wrapper {
-    top: 50px;
-    height: calc(100% - 50px);
   }
 }
 </style>

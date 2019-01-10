@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <page-map/>
     <page-header/>
     <router-view/>
+    <page-map/>
   </div>
 </template>
 
@@ -23,12 +23,6 @@ export default {
 @import "@/common/palette.scss";
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,600,700");
-
-html,
-body,
-#app {
-  height: 100%;
-}
 
 body {
   color: $dark;
@@ -64,6 +58,14 @@ input[type="search"] {
   &:focus {
     outline-width: 2px;
     outline-style: solid;
+  }
+}
+
+@media only screen and (min-width: 501px) {
+  html,
+  body,
+  #app {
+    height: 100%;
   }
 }
 </style>

@@ -19,7 +19,7 @@ header {
   align-items: center;
   position: absolute;
   width: 100%;
-  height: $pageHeaderHeight;
+  height: $headerHeight;
   top: 0;
   left: 0;
   z-index: 1001;
@@ -89,7 +89,7 @@ nav {
 
 @media only screen and (max-width: 500px) {
   header {
-    height: 50px;
+    height: $headerHeightMobile;
   }
 
   h1 {
