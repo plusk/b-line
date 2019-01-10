@@ -1,18 +1,20 @@
 <template>
-  <div class="container">
-    <h2>Settings</h2>
-    <div class="setting">
-      <h3>{{title}}</h3>
-      <div class="radios">
-        <label v-for="value in values">
-          <input
-            type="radio"
-            v-model="selected"
-            v-bind:value="value"
-            v-bind:checked="selected === value"
-          >
-          {{value}}
-        </label>
+  <div class="wrapper">
+    <div class="container">
+      <h2>Settings</h2>
+      <div class="setting">
+        <h3>{{title}}</h3>
+        <div class="radios">
+          <label v-for="value in values">
+            <input
+              type="radio"
+              v-model="selected"
+              v-bind:value="value"
+              v-bind:checked="selected === value"
+            >
+            {{value}}
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -39,19 +41,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+@import "@/common/constants.scss";
+@import "@/common/card.scss";
 
-h2 {
-  font-size: 40px;
-  font-weight: 300;
+.wrapper {
+  @extend %card;
 }
 
 .setting {
-  margin-top: 10px;
   h3 {
     font-size: 20px;
   }

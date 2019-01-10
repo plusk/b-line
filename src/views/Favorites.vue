@@ -1,14 +1,16 @@
 <template>
-  <div class="container">
-    <h2>Favorites</h2>
-    <favorite-field
-      v-for="field in fields"
-      :key="field.id"
-      :name="field.name"
-      :icon="field.icon"
-      :value="field.value"
-    />
-    <button>Save</button>
+  <div class="wrapper">
+    <div class="container">
+      <h2>Favorites</h2>
+      <favorite-field
+        v-for="field in fields"
+        :key="field.id"
+        :name="field.name"
+        :icon="field.icon"
+        :value="field.value"
+      />
+      <button>Save</button>
+    </div>
   </div>
 </template>
 
@@ -58,22 +60,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@import "@/common/constants.scss";
+@import "@/common/card.scss";
 
-  & > * + * {
-    margin-top: 20px;
-  }
-}
-
-h2 {
-  font-size: 40px;
-  font-weight: 300;
-}
-
-button {
-  align-self: flex-end;
+.wrapper {
+  @extend %card;
 }
 </style>

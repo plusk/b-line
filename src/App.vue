@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <page-map/>
     <page-header/>
-    <page-content/>
+    <router-view/>
+    <page-map/>
   </div>
 </template>
 
 <script>
 import PageMap from "@/components/PageMap.vue";
 import PageHeader from "@/components/PageHeader.vue";
-import PageContent from "@/components/PageContent.vue";
 
 export default {
   components: {
     PageMap,
-    PageHeader,
-    PageContent
+    PageHeader
   }
 };
 </script>
@@ -25,12 +23,6 @@ export default {
 @import "@/common/palette.scss";
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,600,700");
-
-html,
-body,
-#app {
-  height: 100%;
-}
 
 body {
   color: $dark;
@@ -66,6 +58,14 @@ input[type="search"] {
   &:focus {
     outline-width: 2px;
     outline-style: solid;
+  }
+}
+
+@media only screen and (min-width: 501px) {
+  html,
+  body,
+  #app {
+    height: 100%;
   }
 }
 </style>

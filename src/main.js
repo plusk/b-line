@@ -6,5 +6,10 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  data: {
+    mapObject: "",
+    source: [],
+    destination: []
+  },
   render: h => h(App)
 }).$mount("#app");

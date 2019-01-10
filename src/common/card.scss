@@ -1,0 +1,60 @@
+@import "@/common/constants.scss";
+
+%card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  min-width: 250px;
+  width: 100%;
+  padding: 10px;
+  z-index: 1000;
+  box-sizing: border-box;
+
+  & > * + * {
+    margin-top: 10px;
+  }
+
+  .container {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+
+    & > * + * {
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 40px;
+      font-weight: 300;
+    }
+
+    & > button:last-child {
+      align-self: flex-end;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    position: inherit;
+    padding: 0;
+    margin-top: $headerHeightMobile;
+    transform: none;
+    height: calc(50vh - #{$headerHeightMobile});
+
+    .container {
+      height: 100%;
+
+      & > * + * {
+        margin-top: 20px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+    }
+  }
+}

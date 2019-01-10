@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import Settings from "./views/Settings.vue";
+import Search from "./views/Search.vue";
 
 Vue.use(Router);
 
@@ -11,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "search",
+      component: Search
     },
     {
       path: "/favorites",
@@ -23,6 +22,11 @@ export default new Router({
       path: "/settings",
       name: "settings",
       component: () => import("./views/Settings.vue")
+    },
+    {
+      path: "/routes",
+      name: "routes",
+      component: () => import("./views/Routes.vue")
     }
   ]
 });
