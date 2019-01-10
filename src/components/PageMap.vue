@@ -58,8 +58,10 @@ export default {
       }
     }).addTo(map);
     */
+    /*
     L.marker(this.$root.$data.source).addTo(map);
     L.marker(this.$root.$data.destination).addTo(map);
+    */
   },
   methods: {
     zoomUpdated(zoom) {

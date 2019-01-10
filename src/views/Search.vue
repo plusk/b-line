@@ -9,7 +9,9 @@
         v-model="destination"
         @keyup.enter="setDestination"
       >
-      <button>Save</button>
+      <router-link to="/routes">
+        <button>Go</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,8 +22,8 @@ import L from "leaflet";
 export default {
   data: function() {
     return {
-      source: "Eurecom",
-      destination: "17 Avenue Louis Gallet"
+      source: "",
+      destination: ""
     };
   },
   methods: {
@@ -60,5 +62,7 @@ export default {
 
 .wrapper {
   @extend %card;
+  top: $headerHeight;
+  transform: translateX(-50%);
 }
 </style>
