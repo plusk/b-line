@@ -12,16 +12,17 @@
 
 <style lang="scss" scoped>
 @import "@/common/palette.scss";
+@import "@/common/constants.scss";
 
 header {
   display: flex;
   align-items: center;
   position: absolute;
   width: 100%;
-  height: 75px;
+  height: $pageHeaderHeight;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1001;
   box-sizing: border-box;
   padding: 10px;
   background: linear-gradient(
@@ -29,6 +30,7 @@ header {
     $accent,
     adjust_hue(darken($accent, 5%), -10deg)
   );
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 img {
@@ -82,6 +84,24 @@ nav {
   &:focus {
     outline-width: 2px;
     outline-style: solid;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  header {
+    height: 50px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  nav > * + * {
+    margin-left: 5px;
+  }
+
+  .route {
+    font-size: 16px;
   }
 }
 </style>

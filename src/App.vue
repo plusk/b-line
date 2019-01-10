@@ -2,20 +2,18 @@
   <div id="app">
     <page-map/>
     <page-header/>
-    <page-content/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import PageMap from "@/components/PageMap.vue";
 import PageHeader from "@/components/PageHeader.vue";
-import PageContent from "@/components/PageContent.vue";
 
 export default {
   components: {
     PageMap,
-    PageHeader,
-    PageContent
+    PageHeader
   }
 };
 </script>

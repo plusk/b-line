@@ -1,14 +1,13 @@
 <template>
   <l-map
     ref="pageMap"
-    style="height: calc(100vh - 75px); width: 100%; top: 75px"
     :zoom="zoom"
     :center="center"
     @update:zoom="zoomUpdated"
     @update:center="centerUpdated"
     @update:bounds="boundsUpdated"
   >
-    <l-tile-layer :url="url"></l-tile-layer>
+    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
   </l-map>
 </template>
 
@@ -39,14 +38,18 @@ export default {
     return {
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+      attribution:
+        "Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.",
       zoom: 13,
-      center: [43.57, 7.0689363],
+      center: [43.588, 7.0689363],
       bounds: null
     };
   },
   mounted: function() {
     const map = this.$refs.pageMap.mapObject;
-
+    this.$root.$data.mapObject = map;
+    L.control;
+    /*
     L.Routing.control({
       waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
       router: L.Routing.mapbox(process.env.VUE_APP_API_KEY),
@@ -54,6 +57,9 @@ export default {
         addWaypoints: false
       }
     }).addTo(map);
+    */
+    L.marker(this.$root.$data.source).addTo(map);
+    L.marker(this.$root.$data.destination).addTo(map);
   },
   methods: {
     zoomUpdated(zoom) {
@@ -68,3 +74,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "@/common/constants.scss";
+
+.vue2leaflet-map {
+  top: $pageHeaderHeight;
+  width: 100%;
+  height: calc(100% - #{$pageHeaderHeight}) !important;
+}
+
+.leaflet-control-container {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .vue2leaflet-map {
+    height: calc(100% - 50px - 300px) !important;
+    top: 350px;
+  }
+}
+</style>

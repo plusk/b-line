@@ -1,14 +1,16 @@
 <template>
-  <div class="container">
-    <h2>Favorites</h2>
-    <favorite-field
-      v-for="field in fields"
-      :key="field.id"
-      :name="field.name"
-      :icon="field.icon"
-      :value="field.value"
-    />
-    <button>Save</button>
+  <div class="wrapper">
+    <div class="container">
+      <h2>Favorites</h2>
+      <favorite-field
+        v-for="field in fields"
+        :key="field.id"
+        :name="field.name"
+        :icon="field.icon"
+        :value="field.value"
+      />
+      <button>Save</button>
+    </div>
   </div>
 </template>
 
@@ -58,7 +60,29 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "@/common/constants.scss";
+
+.wrapper {
+  position: absolute;
+  left: 0;
+  top: $pageHeaderHeight;
+  width: 100%;
+  height: calc(100% - #{$pageHeaderHeight});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  z-index: 1000;
+  box-sizing: border-box;
+  background: #f2f2f2;
+}
+
 .container {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,5 +99,12 @@ h2 {
 
 button {
   align-self: flex-end;
+}
+
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    top: 50px;
+    height: calc(100% - 50px);
+  }
 }
 </style>
