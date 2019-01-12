@@ -16,7 +16,6 @@
 
 <script>
 import L from "leaflet";
-import Vue from "vue";
 import { format, addSeconds, distanceInWords } from "date-fns";
 
 export default {

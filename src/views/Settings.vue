@@ -112,7 +112,7 @@ img {
     img {
       filter: brightness(150%);
     }
-    picker {
+    .picker {
       background-color: lighten($accent, 10%);
     }
   }
