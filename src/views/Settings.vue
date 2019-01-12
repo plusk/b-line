@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import userIcon from "@/assets/user_img.png";
-
 export default {
   data: function() {
     return {
@@ -61,9 +59,8 @@ export default {
         alert("Select an image");
         return;
       }
-      var img = new Image();
-      var reader = new FileReader();
-      var vm = this;
+      const reader = new FileReader();
+      const vm = this;
 
       reader.onload = function(e) {
         vm.image = e.target.result;
