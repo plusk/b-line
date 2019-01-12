@@ -60,17 +60,15 @@ export default {
       .addTo(map)
       .on("routesfound", function(e) {
         const now = new Date();
-
-        e.routes.map(function(route, index) {
-          const then = addSeconds(now, route.summary.totalTime);
-
-          vm.routes.push({
-            id: index,
-            from: format(now, "HH:mm"),
-            to: format(then, "HH:mm"),
-            duration: distanceInWords(now, then)
-          });
-        });
+        vm.routes = e.routes.map((route, index) => ({
+          id: index,
+          from: format(now, "HH:mm"),
+          to: format(addSeconds(now, route.summary.totalTime), "HH:mm"),
+          duration: distanceInWords(
+            now,
+            addSeconds(now, route.summary.totalTime)
+          )
+        }));
       });
     const markers = new L.featureGroup([
       this.$root.$data.source.mark,

@@ -113,7 +113,7 @@ img {
       filter: brightness(150%);
     }
     .picker {
-      background-color: lighten($accent, 10%);
+      background-color: lighten($dark, 10%);
     }
   }
 }
@@ -134,7 +134,7 @@ img {
   font-weight: 300;
   height: 100%;
   color: white;
-  background: $accent;
+  background: $dark;
   border-radius: 50%;
   transition: background 0.2s;
   cursor: pointer;
