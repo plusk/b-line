@@ -23,11 +23,20 @@ export default {
 @import "@/common/palette.scss";
 
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,400i,600,700");
-
+html,
+body,
+#app {
+  height: 100%;
+}
 body {
   color: $dark;
   font-family: "Lato", sans-serif;
   background: #fafafa;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
 }
 
 button {

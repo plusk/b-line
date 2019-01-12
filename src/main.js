@@ -8,8 +8,16 @@ new Vue({
   router,
   data: {
     mapObject: "",
-    source: [],
-    destination: []
+    source: {
+      verbose: "",
+      latLng: [],
+      mark: {}
+    },
+    destination: {
+      verbose: "",
+      latLng: [],
+      mark: {}
+    }
   },
   render: h => h(App)
 }).$mount("#app");

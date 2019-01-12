@@ -48,20 +48,6 @@ export default {
   mounted: function() {
     const map = this.$refs.pageMap.mapObject;
     this.$root.$data.mapObject = map;
-    L.control;
-    /*
-    L.Routing.control({
-      waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
-      router: L.Routing.mapbox(process.env.VUE_APP_API_KEY),
-      lineOptions: {
-        addWaypoints: false
-      }
-    }).addTo(map);
-    */
-    /*
-    L.marker(this.$root.$data.source).addTo(map);
-    L.marker(this.$root.$data.destination).addTo(map);
-    */
   },
   methods: {
     zoomUpdated(zoom) {
@@ -92,9 +78,8 @@ export default {
 
 @media only screen and (max-width: 500px) {
   .vue2leaflet-map {
+    box-sizing: border-box;
     top: 0;
-    z-index: -1;
-    height: 50vh !important;
   }
 }
 </style>
