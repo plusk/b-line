@@ -2,16 +2,20 @@
   <div class="wrapper">
     <div class="container">
       <h2>Settings</h2>
-
-      <!-- drag n drop / upload image -->
-      <div class="droparea display-inline align-center" @dragover.prevent @drop="onDrop">
-        <label v-if="!image" class="btn display-inline">
+      <div
+        class="picture"
+        @dragover.prevent
+        @drop.prevent="e => this.createFile(e.dataTransfer.files[0])"
+      >
+        <label class="picker">
           Select or drop image
-          <input type="file" name="image" @change="onChange">
+          <input
+            type="file"
+            accept="image/*"
+            @change="e => createFile(e.target.files[0])"
+          >
         </label>
-        <div class="hidden display-inline align-center" v-else v-bind:class="{ 'image': true }">
-          <img :src="image" alt class="img">
-        </div>
+        <img v-if="image" :src="image" alt="profile picture">
       </div>
       <div class="setting">
         <h3>{{title}}</h3>
@@ -52,16 +56,6 @@ export default {
     this.selected = this.values[1];
   },
   methods: {
-    onDrop: function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      var files = e.dataTransfer.files;
-      this.createFile(files[0]);
-    },
-    onChange(e) {
-      var files = e.target.files;
-      this.createFile(files[0]);
-    },
     createFile(file) {
       if (!file.type.match("image.*")) {
         alert("Select an image");
@@ -83,6 +77,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/common/constants.scss";
+@import "@/common/palette.scss";
 @import "@/common/card.scss";
 
 .wrapper {
@@ -95,12 +90,6 @@ export default {
   }
 }
 
-label.btn {
-  font-size: 10px;
-  display: table-cell;
-  vertical-align: middle;
-}
-
 .radios {
   margin-top: 10px;
   display: flex;
@@ -111,66 +100,50 @@ label.btn {
   }
 }
 
-.img {
-  max-height: 25%;
-  max-width: 25%;
+.picture,
+.picker,
+img {
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
-  margin-bottom: 20px;
 }
-/*
-.droparea {
-  border-radius: 50%;
+
+.picture {
+  position: relative;
+
+  &:hover {
+    img {
+      filter: brightness(150%);
+    }
+    picker {
+      background-color: lighten($accent, 10%);
+    }
+  }
+}
+
+img {
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+  pointer-events: none;
+  transition: filter 0.2s;
+}
+
+.picker {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: 300;
   height: 100%;
-  max-height: 400px;
-  max-width: 400px;
-} */
-
-/* background-color: #f3c96d;
+  color: white;
+  background: $accent;
   border-radius: 50%;
-  width: 10%;
-  max-height: 40%;
-  max-width: 40%;
-  color: #fff;
+  transition: background 0.2s;
   cursor: pointer;
-  padding: 28px 45px;
-  margin-bottom: 20px;  */
-
-.btn {
-  background-color: #f3c96d;
-  border-radius: 50%;
-  display: block;
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.btn:hover {
-  background-color: #ffa42d;
 }
 
 input[type="file"] {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-
-.align-center {
-  text-align: center;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.hidden.image {
-  display: inline-block !important;
-}
-
-.display-inline {
-  display: inline-block;
-  vertical-align: middle;
+  display: none;
 }
 </style>
