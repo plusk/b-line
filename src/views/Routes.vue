@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper">
-    <div v-for="route in routes" :key="route.id" class="container">
+    <div
+      v-for="route in routes"
+      :key="route.id"
+      :class="{ container: true, selected: selected === route.id }"
+      @click="selectRoute(route.id)"
+    >
       <p>{{source}}</p>
       <img class="logo" src="../assets/bus.svg" alt="logo">
       <p>{{destination}}</p>
@@ -8,8 +13,11 @@
       <p>{{route.duration}}</p>
       <p>{{route.to}}</p>
     </div>
-    <div v-if="routes.length === 0" class="container error">
+    <div v-if="error" class="container error">
       <p>No routes found between {{source}} and {{destination}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
+    </div>
+    <div v-else-if="routes.length === 0" class="container loader">
+      <div class="spinner"></div>
     </div>
   </div>
 </template>
@@ -19,14 +27,27 @@ import L from "leaflet";
 import { format, addSeconds, distanceInWords } from "date-fns";
 
 export default {
-  data: function() {
+  data() {
     return {
       source: "",
       destination: "",
-      routes: []
+      error: false,
+      routes: [],
+      selected: 0,
+      control: {}
     };
   },
-  mounted: function() {
+  methods: {
+    selectRoute(id) {
+      this.selected = id;
+      console.log(this.control);
+      const selectedRoute = this.control._alternatives.find(
+        alt => alt._route.routesIndex === id
+      );
+      selectedRoute.fire("linetouched");
+    }
+  },
+  mounted() {
     const map = this.$root.$data.mapObject;
 
     this.source = this.$root.$data.source.verbose;
@@ -34,7 +55,7 @@ export default {
 
     const vm = this;
 
-    L.Routing.control({
+    vm.control = L.Routing.control({
       waypoints: [
         this.$root.$data.source.latLng,
         this.$root.$data.destination.latLng
@@ -55,13 +76,14 @@ export default {
           { color: "white", opacity: 0.8, weight: 6 },
           { color: "gold", opacity: 0.5, weight: 2 }
         ]
-      }
+      },
+      containerClassName: "routing-itinerary-hidden"
     })
       .addTo(map)
-      .on("routesfound", function(e) {
+      .on("routesfound", e => {
         const now = new Date();
-        vm.routes = e.routes.map((route, index) => ({
-          id: index,
+        vm.routes = e.routes.map(route => ({
+          id: route.routesIndex,
           from: format(now, "HH:mm"),
           to: format(addSeconds(now, route.summary.totalTime), "HH:mm"),
           duration: distanceInWords(
@@ -69,6 +91,13 @@ export default {
             addSeconds(now, route.summary.totalTime)
           )
         }));
+        vm.error = false;
+      })
+      .on("routeselected", e => {
+        vm.selected = e.route.routesIndex;
+      })
+      .on("routingerror", () => {
+        vm.error = true;
       });
     const markers = new L.featureGroup([
       this.$root.$data.source.mark,
@@ -105,13 +134,27 @@ export default {
       margin: 0 auto;
     }
 
+    &.loader {
+      display: block;
+
+      .spinner {
+        border: 8px solid #eee;
+        border-top: 8px solid transparentize($accent, 0.25);
+        border-radius: 50%;
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        animation: spin 2s linear infinite;
+      }
+    }
+
     &.error {
       display: block;
       color: red;
     }
   }
 
-  .highlighted {
+  .selected {
     outline: 2px solid $accent;
   }
 
@@ -129,5 +172,14 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

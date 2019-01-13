@@ -25,7 +25,7 @@ export default {
   components: {
     FavoriteField
   },
-  data: function() {
+  data() {
     return {
       fields: [
         {

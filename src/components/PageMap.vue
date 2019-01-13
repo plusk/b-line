@@ -45,8 +45,9 @@ export default {
       bounds: null
     };
   },
-  mounted: function() {
+  mounted() {
     const map = this.$refs.pageMap.mapObject;
+    map.zoomControl.remove();
     this.$root.$data.mapObject = map;
   },
   methods: {
@@ -72,7 +73,7 @@ export default {
   height: calc(100% - #{$headerHeight}) !important;
 }
 
-.leaflet-control-container {
+.routing-itinerary-hidden {
   display: none;
 }
 

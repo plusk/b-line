@@ -20,7 +20,7 @@
 import L from "leaflet";
 
 export default {
-  data: function() {
+  data() {
     return {
       source: "",
       destination: ""

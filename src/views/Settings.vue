@@ -5,7 +5,8 @@
       <div
         class="picture"
         @dragover.prevent
-        @drop.prevent="e => this.createFile(e.dataTransfer.files[0])"
+        @drop="e => this.createFile(e.dataTransfer.files[0])"
+        @drop.prevent
       >
         <label class="picker">
           Select or drop image
@@ -20,7 +21,7 @@
       <div class="setting">
         <h3>{{title}}</h3>
         <div class="radios">
-          <label v-for="value in values">
+          <label v-for="(value, index) in values" :key="index">
             <input
               type="radio"
               v-model="selected"
@@ -37,7 +38,7 @@
 
 <script>
 export default {
-  data: function() {
+  data() {
     return {
       title: "Route Priorities",
       values: [
@@ -50,7 +51,7 @@ export default {
       image: ""
     };
   },
-  mounted: function() {
+  mounted() {
     this.selected = this.values[1];
   },
   methods: {
