@@ -26,6 +26,10 @@ export default {
       destination: ""
     };
   },
+  mounted() {
+    this.source = this.$root.$data.source.verbose;
+    this.destination = this.$root.$data.destination.verbose;
+  },
   methods: {
     setSource() {
       this.panToResult(this.source, true);

@@ -6,16 +6,28 @@
       :class="{ container: true, selected: selected === route.id }"
       @click="selectRoute(route.id)"
     >
-      <p>{{source}}</p>
-      <img class="logo" src="../assets/bus.svg" alt="logo">
-      <p>{{destination}}</p>
-      <p>{{route.from}}</p>
-      <p>{{route.duration}}</p>
-      <p>{{route.to}}</p>
-      <ul v-if="selected === route.id" class="expanded">
-        <li v-for="(point, index) in route.instructions" :key="index">{{point.road}}</li>
+      <div class="top">
+        <div class="left">
+          <p>{{source}}</p>
+          <p>{{route.from}}</p>
+        </div>
+        <div class="middle">
+          <img class="logo" src="../assets/bus.svg" alt="logo">
+          <p>{{route.duration}}</p>
+        </div>
+        <div class="right">
+          <p>{{destination}}</p>
+          <p>{{route.to}}</p>
+        </div>
+      </div>
+      <div v-if="selected === route.id" class="expanded">
+        <div class="vertical-line"></div>
+        <div v-for="(point, index) in route.instructions" :key="index" class="instruction">
+          <span v-if="point.time" class="time">{{point.time}}</span>
+          <span v-if="point.road" class="road">{{point.road}}</span>
+        </div>
         <button @click="chooseRoute">></button>
-      </ul>
+      </div>
     </div>
     <div v-if="error" class="container error">
       <p>No routes found between {{source}} and {{destination}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
@@ -94,16 +106,25 @@ export default {
       .addTo(map)
       .on("routesfound", e => {
         const now = new Date();
-        vm.routes = e.routes.map(route => ({
-          id: route.routesIndex,
-          from: format(now, "HH:mm"),
-          to: format(addSeconds(now, route.summary.totalTime), "HH:mm"),
-          duration: distanceInWords(
-            now,
-            addSeconds(now, route.summary.totalTime)
-          ),
-          instructions: route.instructions
-        }));
+        vm.routes = e.routes.map(route => {
+          let pointTime = now;
+          return {
+            id: route.routesIndex,
+            from: format(now, "HH:mm"),
+            to: format(addSeconds(now, route.summary.totalTime), "HH:mm"),
+            duration: distanceInWords(
+              now,
+              addSeconds(now, route.summary.totalTime)
+            ),
+            instructions: route.instructions.map(point => {
+              pointTime = addSeconds(pointTime, point.time);
+              return {
+                road: point.road,
+                time: point.road ? format(pointTime, "HH:mm") : null
+              };
+            })
+          };
+        });
         vm.error = false;
       })
       .on("routeselected", e => {
@@ -133,11 +154,6 @@ export default {
   transform: translateX(-50%);
 
   .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    grid-gap: 5px;
-    cursor: pointer;
     transition: background 0.2s;
 
     & > * + * {
@@ -157,8 +173,8 @@ export default {
         border-top: 8px solid transparentize($accent, 0.25);
         border-radius: 50%;
         margin: 0 auto;
-        width: 100px;
-        height: 100px;
+        width: 75px;
+        height: 75px;
         animation: spin 2s linear infinite;
       }
     }
@@ -168,8 +184,9 @@ export default {
       color: red;
     }
 
-    &:not(.selected):hover {
+    &:not(.selected):not(.loader):hover {
       background: darken(white, 5%);
+      cursor: pointer;
     }
   }
 
@@ -186,7 +203,21 @@ export default {
 .top {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  line-height: 1.25;
   width: 100%;
+}
+
+.left {
+  text-align: left;
+}
+
+.middle {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
 }
 
 .selected {
@@ -194,46 +225,63 @@ export default {
 }
 
 $dotSize: 10px;
+$dotPadding: 20px;
 
 .expanded {
-  grid-column: 1 / 4;
-  text-align: left;
   display: flex;
   flex-direction: column;
-  padding-left: 15%;
   position: relative;
+  width: 100%;
 
-  li {
+  .vertical-line {
+    display: block;
+    position: absolute;
+    width: 1px;
+    background: $dark;
+    height: 100%;
+    left: 50px;
+  }
+
+  .instruction {
     position: relative;
-    margin-left: $dotSize * 2;
     margin-top: 5px;
 
-    &:hover::after {
-      background: $accent;
+    &:hover {
+      .time,
+      .road {
+        color: $dark;
+      }
+
+      .road::before {
+        background: $accent;
+      }
     }
 
     &:empty {
       display: none;
     }
 
-    &::before {
-      position: absolute;
-      display: block;
-      content: "";
-      width: 1px;
-      background: $dark;
-      height: 150%;
-      left: -$dotSize - $dotSize/2 -1;
+    .time {
+      left: -$dotPadding;
+      transform: translateX(-100%);
+      color: lighten($dark, 50%);
+      transition: color 0.1s;
     }
 
-    &::after {
+    .road {
+      position: absolute;
+      margin-left: $dotPadding;
+      color: lighten($dark, 10%);
+    }
+
+    .road::before {
       position: absolute;
       display: block;
       content: "";
       height: $dotSize;
       width: $dotSize;
-      background: $dark;
-      left: -$dotSize * 2;
+      background: currentColor;
+      left: -$dotSize / 2 * 3;
       border-radius: 50%;
       top: 50%;
       transform: translateY(-50%);
