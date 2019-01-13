@@ -12,6 +12,9 @@
       <p>{{route.from}}</p>
       <p>{{route.duration}}</p>
       <p>{{route.to}}</p>
+      <ul v-if="selected === route.id" class="expanded">
+        <li v-for="(point, index) in route.instructions" :key="index">{{point.road}}</li>
+      </ul>
     </div>
     <div v-if="error" class="container error">
       <p>No routes found between {{source}} and {{destination}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
@@ -39,8 +42,11 @@ export default {
   },
   methods: {
     selectRoute(id) {
-      this.selected = id;
-      console.log(this.control);
+      if (id === this.selected) {
+        this.selected = -1;
+      } else {
+        this.selected = id;
+      }
       const selectedRoute = this.control._alternatives.find(
         alt => alt._route.routesIndex === id
       );
@@ -89,7 +95,8 @@ export default {
           duration: distanceInWords(
             now,
             addSeconds(now, route.summary.totalTime)
-          )
+          ),
+          instructions: route.instructions
         }));
         vm.error = false;
       })
@@ -154,10 +161,6 @@ export default {
     }
   }
 
-  .selected {
-    outline: 2px solid $accent;
-  }
-
   @media only screen and (max-width: 500px) {
     transform: none;
 
@@ -172,6 +175,59 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.selected {
+  outline: 2px solid $accent;
+}
+
+$dotSize: 10px;
+
+.expanded {
+  grid-column: 1 / 4;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding-left: 15%;
+
+  li {
+    position: relative;
+    margin-left: $dotSize * 2;
+    margin-top: 5px;
+
+    &:hover::after {
+      background: $accent;
+    }
+
+    &:empty {
+      display: none;
+    }
+
+    &::before {
+      position: absolute;
+      display: block;
+      content: "";
+      width: 1px;
+      background: $dark;
+      height: 150%;
+      left: -$dotSize - $dotSize/2 -1;
+    }
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: "";
+      height: $dotSize;
+      width: $dotSize;
+      background: $dark;
+      left: -$dotSize * 2;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background-color 0.05s;
+    }
+  }
 }
 
 @keyframes spin {
