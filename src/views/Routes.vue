@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div :class="{ wrapper: true, choiceMade }">
     <div
-      v-for="route in routes"
+      v-for="route in listedRoutes"
       :key="route.id"
       :class="{ container: true, selected: selected === route.id }"
       @click="selectRoute(route.id)"
@@ -20,13 +20,14 @@
           <p>{{route.to}}</p>
         </div>
       </div>
-      <div v-if="selected === route.id" class="expanded">
+      <div v-if="choiceMade" class="success">Enjoy your trip!</div>
+      <div v-else-if="selected === route.id" class="expanded">
         <div class="vertical-line"></div>
         <div v-for="(point, index) in route.instructions" :key="index" class="instruction">
           <span v-if="point.time" class="time">{{point.time}}</span>
           <span v-if="point.road" class="road">{{point.road}}</span>
         </div>
-        <button @click="chooseRoute">></button>
+        <button class="forward" @click="toggleChoice">&#62;</button>
       </div>
     </div>
     <div v-if="error" class="container error">
@@ -35,6 +36,7 @@
     <div v-else-if="routes.length === 0" class="container loader">
       <div class="spinner"></div>
     </div>
+    <button class="back" @click="goBack">&#60;</button>
   </div>
 </template>
 
@@ -50,12 +52,21 @@ export default {
       error: false,
       routes: [],
       selected: 0,
+      choiceMade: false,
       control: {}
     };
   },
+  computed: {
+    listedRoutes() {
+      const vm = this;
+      return this.routes.filter(
+        route => !this.choiceMade || route.id === this.selected
+      );
+    }
+  },
   methods: {
     selectRoute(id) {
-      if (id === this.selected) {
+      if (id === this.selected && !this.choiceMade) {
         this.selected = -1;
       } else {
         this.selected = id;
@@ -67,8 +78,24 @@ export default {
         }
       }
     },
-    chooseRoute() {
-      console.log("Choosing route");
+    toggleChoice(e) {
+      e.stopPropagation();
+      this.choiceMade = !this.choiceMade;
+      this.fitRoute(0);
+    },
+    fitRoute(padding) {
+      const markers = new L.featureGroup([
+        this.$root.$data.source.mark,
+        this.$root.$data.destination.mark
+      ]);
+      this.$root.$data.mapObject.fitBounds(markers.getBounds().pad(padding));
+    },
+    goBack(e) {
+      if (this.choiceMade) {
+        this.toggleChoice(e);
+      } else {
+        this.$router.go(-1);
+      }
     }
   },
   mounted() {
@@ -101,7 +128,8 @@ export default {
           { color: "gold", opacity: 0.5, weight: 2 }
         ]
       },
-      containerClassName: "routing-itinerary-hidden"
+      containerClassName: "routing-itinerary-hidden",
+      alternativeClassName: "routing-alternative-route"
     })
       .addTo(map)
       .on("routesfound", e => {
@@ -133,11 +161,7 @@ export default {
       .on("routingerror", () => {
         vm.error = true;
       });
-    const markers = new L.featureGroup([
-      this.$root.$data.source.mark,
-      this.$root.$data.destination.mark
-    ]);
-    map.fitBounds(markers.getBounds().pad(0.25));
+    this.fitRoute(0.25);
   }
 };
 </script>
@@ -232,6 +256,7 @@ $dotPadding: 20px;
   flex-direction: column;
   position: relative;
   width: 100%;
+  user-select: none;
 
   .vertical-line {
     display: block;
@@ -290,11 +315,36 @@ $dotPadding: 20px;
   }
 }
 
-button {
+button.forward {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.choiceMade .container:not(.selected) {
+  display: none;
+}
+
+.choiceMade .selected {
+  outline-color: limegreen;
+}
+
+.back {
+  position: absolute;
+  left: 10px;
+
+  @media only screen and (min-width: 501px) {
+    top: 0;
+    transform: translateX(calc(-100% - 10px));
+  }
+}
+
+.success {
+  color: green;
+  font-size: 200%;
+  font-weight: 300;
+  padding-top: 20px;
 }
 
 @keyframes spin {
