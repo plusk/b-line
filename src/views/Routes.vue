@@ -58,7 +58,6 @@ export default {
   },
   computed: {
     listedRoutes() {
-      const vm = this;
       return this.routes.filter(
         route => !this.choiceMade || route.id === this.selected
       );
