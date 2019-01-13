@@ -34,7 +34,7 @@ header {
 }
 
 img {
-  height: 50px;
+  height: 100%;
 }
 
 h1 {
