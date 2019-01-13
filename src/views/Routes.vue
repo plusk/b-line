@@ -14,6 +14,7 @@
       <p>{{route.to}}</p>
       <ul v-if="selected === route.id" class="expanded">
         <li v-for="(point, index) in route.instructions" :key="index">{{point.road}}</li>
+        <button @click="chooseRoute">></button>
       </ul>
     </div>
     <div v-if="error" class="container error">
@@ -46,11 +47,16 @@ export default {
         this.selected = -1;
       } else {
         this.selected = id;
+        const selectedRoute = this.control._alternatives.find(
+          alt => alt._route.routesIndex === id
+        );
+        if (selectedRoute) {
+          selectedRoute.fire("linetouched");
+        }
       }
-      const selectedRoute = this.control._alternatives.find(
-        alt => alt._route.routesIndex === id
-      );
-      selectedRoute.fire("linetouched");
+    },
+    chooseRoute() {
+      console.log("Choosing route");
     }
   },
   mounted() {
@@ -131,6 +137,8 @@ export default {
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
     grid-gap: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
 
     & > * + * {
       margin: 0;
@@ -158,6 +166,10 @@ export default {
     &.error {
       display: block;
       color: red;
+    }
+
+    &:not(.selected):hover {
+      background: darken(white, 5%);
     }
   }
 
@@ -188,8 +200,8 @@ $dotSize: 10px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  width: fit-content;
   padding-left: 15%;
+  position: relative;
 
   li {
     position: relative;
@@ -228,6 +240,13 @@ $dotSize: 10px;
       transition: background-color 0.05s;
     }
   }
+}
+
+button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes spin {

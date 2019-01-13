@@ -81,6 +81,7 @@ export default {
   .vue2leaflet-map {
     box-sizing: border-box;
     top: 0;
+    min-height: 50vh;
   }
 }
 </style>
