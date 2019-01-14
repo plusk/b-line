@@ -49,6 +49,21 @@ export default {
     const map = this.$refs.pageMap.mapObject;
     map.zoomControl.remove();
     this.$root.$data.mapObject = map;
+
+    const names = [
+      "source",
+      "destination",
+      "favorites.Home",
+      "favorites.Work",
+      "favorites.School",
+      "favorites.New"
+    ];
+    names.forEach(name => {
+      const obj = this.$root.$data[name];
+      if (obj) {
+        this.initializeMark(obj);
+      }
+    });
   },
   methods: {
     zoomUpdated(zoom) {
@@ -59,6 +74,17 @@ export default {
     },
     boundsUpdated(bounds) {
       this.bounds = bounds;
+    },
+    initializeMark(obj) {
+      const map = this.$refs.pageMap.mapObject;
+      if (Object.keys(obj.latLng).length !== 0) {
+        map.panTo(obj.latLng);
+        const mark = L.marker(obj.latLng, {
+          title: obj.verbose
+        });
+        mark.addTo(map);
+        obj.mark = mark;
+      }
     }
   }
 };

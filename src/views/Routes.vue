@@ -127,8 +127,7 @@ export default {
           { color: "gold", opacity: 0.5, weight: 2 }
         ]
       },
-      containerClassName: "routing-itinerary-hidden",
-      alternativeClassName: "routing-alternative-route"
+      containerClassName: "routing-itinerary-hidden"
     })
       .addTo(map)
       .on("routesfound", e => {
@@ -161,6 +160,9 @@ export default {
         vm.error = true;
       });
     this.fitRoute(0.25);
+  },
+  destroyed() {
+    this.control.remove();
   }
 };
 </script>
