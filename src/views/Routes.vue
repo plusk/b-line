@@ -161,6 +161,9 @@ export default {
         vm.error = true;
       });
     this.fitRoute(0.25);
+  },
+  destroyed() {
+    this.control.remove();
   }
 };
 </script>
