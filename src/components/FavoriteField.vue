@@ -89,5 +89,9 @@ export default {
   input::placeholder {
     text-transform: capitalize;
   }
+  img {
+    height: 30px;
+    align-self: flex-end;
+  }
 }
 </style>

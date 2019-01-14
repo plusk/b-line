@@ -9,16 +9,17 @@
         :icon="field.icon"
         :value="field.value"
       />
+
       <button>Save</button>
     </div>
   </div>
 </template>
 
 <script>
-import homeIcon from "@/assets/fav_home.png";
-import workIcon from "@/assets/fav_work.png";
-import schoolIcon from "@/assets/fav_school.png";
-import newIcon from "@/assets/fav_new.png";
+import homeIcon from "@/assets/home_fav.svg";
+import workIcon from "@/assets/work_fav.svg";
+import schoolIcon from "@/assets/school_fav.svg";
+import newIcon from "@/assets/add_fav.svg";
 
 import FavoriteField from "@/components/FavoriteField.vue";
 export default {
