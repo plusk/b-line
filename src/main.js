@@ -17,7 +17,8 @@ new Vue({
       verbose: "",
       latLng: [],
       mark: {}
-    }
+    },
+    favorites: {}
   },
   render: h => h(App)
 }).$mount("#app");

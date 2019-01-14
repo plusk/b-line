@@ -3,8 +3,8 @@
     <div class="container">
       <h2>Favorites</h2>
       <favorite-field
-        v-for="field in fields"
-        :key="field.id"
+        v-for="(field, index) in fields"
+        :key="index"
         :name="field.name"
         :icon="field.icon"
         :value="field.value"
@@ -29,28 +29,32 @@ export default {
     return {
       fields: [
         {
-          id: 0,
           name: "Home",
           icon: homeIcon,
-          value: ""
+          value: this.$root.$data.favorites["Home"]
+            ? this.$root.$data.favorites["Home"].verbose
+            : ""
         },
         {
-          id: 1,
           name: "Work",
           icon: workIcon,
-          value: ""
+          value: this.$root.$data.favorites["Work"]
+            ? this.$root.$data.favorites["Work"].verbose
+            : ""
         },
         {
-          id: 2,
           name: "School",
           icon: schoolIcon,
-          value: ""
+          value: this.$root.$data.favorites["School"]
+            ? this.$root.$data.favorites["School"].verbose
+            : ""
         },
         {
-          id: 3,
           name: "New",
           icon: newIcon,
-          value: ""
+          value: this.$root.$data.favorites["New"]
+            ? this.$root.$data.favorites["New"].verbose
+            : ""
         }
       ]
     };
