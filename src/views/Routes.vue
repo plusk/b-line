@@ -127,8 +127,7 @@ export default {
           { color: "gold", opacity: 0.5, weight: 2 }
         ]
       },
-      containerClassName: "routing-itinerary-hidden",
-      alternativeClassName: "routing-alternative-route"
+      containerClassName: "routing-itinerary-hidden"
     })
       .addTo(map)
       .on("routesfound", e => {

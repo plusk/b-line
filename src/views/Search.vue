@@ -2,12 +2,17 @@
   <div class="wrapper">
     <div class="container">
       <h2>Search</h2>
-      <input type="search" placeholder="Where from?" v-model="source" @keyup.enter="setSource">
+      <input
+        type="search"
+        placeholder="Where from?"
+        v-model="source"
+        @keyup.enter="panToResult(source, true)"
+      >
       <input
         type="search"
         placeholder="Where to?"
         v-model="destination"
-        @keyup.enter="setDestination"
+        @keyup.enter="panToResult(destination, false)"
       >
       <router-link to="/routes">
         <button>Go</button>
@@ -31,18 +36,8 @@ export default {
     this.destination = this.$root.$data.destination.verbose;
   },
   methods: {
-    setSource() {
-      this.panToResult(this.source, true);
-      this.$root.$data.source.verbose = this.source;
-    },
-    setDestination() {
-      this.panToResult(this.destination, false);
-      this.$root.$data.destination.verbose = this.destination;
-    },
     panToResult(location, isSource) {
       const map = this.$root.$data.mapObject;
-      const oldSource = this.$root.$data.source.mark;
-      const oldDestination = this.$root.$data.destination.mark;
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
@@ -58,17 +53,25 @@ export default {
           const mark = L.marker(latLng);
           mark.addTo(map);
           if (isSource) {
+            const oldSource = this.$root.$data.source.mark;
             if (oldSource) {
               map.removeLayer(oldSource);
             }
-            this.$root.$data.source.latLng = latLng;
-            this.$root.$data.source.mark = mark;
+            this.$root.$data.source = {
+              latLng,
+              mark,
+              verbose: this.source
+            };
           } else {
+            const oldDestination = this.$root.$data.destination.mark;
             if (oldDestination) {
               map.removeLayer(oldDestination);
             }
-            this.$root.$data.destination.latLng = latLng;
-            this.$root.$data.destination.mark = mark;
+            this.$root.$data.destination = {
+              latLng,
+              mark,
+              verbose: this.destination
+            };
           }
         });
     }
