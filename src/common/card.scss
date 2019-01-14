@@ -3,7 +3,7 @@
 %card {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: calc(50% + #{$headerHeight / 2});
   transform: translate(-50%, -50%);
   max-width: 500px;
   min-width: 250px;
