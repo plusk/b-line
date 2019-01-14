@@ -64,7 +64,9 @@ export default {
           const mark = L.marker(latLng, {
             title: name
           });
-          mark.addTo(map);
+          if (this.$root.$data.showFavorites) {
+            mark.addTo(map);
+          }
           return {
             latLng,
             mark
