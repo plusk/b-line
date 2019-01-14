@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import L from "leaflet";
+
 export default {
   props: {
     name: String,
