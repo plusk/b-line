@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="container">
+      <button id="speech" class="speech-button" @click="speech"><img src="../assets/sound.svg"></button>
       <h2>Search</h2>
       <input
         type="search"
@@ -70,11 +71,21 @@ export default {
             mark
           };
         });
+    },
+    speech() {
+      if ("speechSynthesis" in window) {
+        var synth = window.speechSynthesis;
+        var msg = "From " + this.source + " to " + this.destination;
+        var voices = synth.getVoices();
+        var utterance = new SpeechSynthesisUtterance(msg);
+        utterance.voice = voices[1];
+
+        synth.speak(utterance);
+      }
     }
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 @import "@/common/constants.scss";
@@ -88,5 +99,10 @@ export default {
   @media only screen and (max-width: 500px) {
     transform: none;
   }
+}
+
+.speech-button {
+  background: white;
+  align-self: flex-end;
 }
 </style>
