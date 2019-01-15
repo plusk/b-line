@@ -9,7 +9,6 @@
         :icon="field.icon"
         :value="field.value"
       />
-
       <button>Save</button>
     </div>
   </div>
@@ -30,31 +29,31 @@ export default {
     return {
       fields: [
         {
-          name: "Home",
+          name: "home",
           icon: homeIcon,
-          value: this.$root.$data.favorites["Home"]
-            ? this.$root.$data.favorites["Home"].verbose
+          value: this.$root.$data.favorites["home"]
+            ? this.$root.$data.favorites["home"].verbose
             : ""
         },
         {
-          name: "Work",
+          name: "work",
           icon: workIcon,
-          value: this.$root.$data.favorites["Work"]
-            ? this.$root.$data.favorites["Work"].verbose
+          value: this.$root.$data.favorites["work"]
+            ? this.$root.$data.favorites["work"].verbose
             : ""
         },
         {
-          name: "School",
+          name: "school",
           icon: schoolIcon,
-          value: this.$root.$data.favorites["School"]
-            ? this.$root.$data.favorites["School"].verbose
+          value: this.$root.$data.favorites["school"]
+            ? this.$root.$data.favorites["school"].verbose
             : ""
         },
         {
-          name: "New",
+          name: "new",
           icon: newIcon,
-          value: this.$root.$data.favorites["New"]
-            ? this.$root.$data.favorites["New"].verbose
+          value: this.$root.$data.favorites["new"]
+            ? this.$root.$data.favorites["new"].verbose
             : ""
         }
       ]

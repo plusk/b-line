@@ -46,23 +46,15 @@ export default {
     };
   },
   mounted() {
-    const map = this.$refs.pageMap.mapObject;
-    map.zoomControl.remove();
-    this.$root.$data.mapObject = map;
+    const mapObject = this.$refs.pageMap.mapObject;
+    mapObject.zoomControl.remove();
+    this.$root.$data.map = mapObject;
 
-    const names = [
-      "source",
-      "destination",
-      "favorites.Home",
-      "favorites.Work",
-      "favorites.School",
-      "favorites.New"
-    ];
-    names.forEach(name => {
-      const obj = this.$root.$data[name];
-      if (obj) {
-        this.initializeMark(obj);
-      }
+    ["source", "destination"].forEach(target =>
+      this.initializeMark(this.$root.$data[target])
+    );
+    ["home", "work", "school", "new"].forEach(fav => {
+      this.initializeMark(this.$root.$data.favorites[fav]);
     });
   },
   methods: {

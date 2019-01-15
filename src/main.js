@@ -5,10 +5,20 @@ import { stringify, parse } from "flatted/esm";
 
 Vue.config.productionTip = false;
 
+const favorites = {};
+const favoriteNames = ["home", "work", "school", "new"];
+favoriteNames.forEach(name => {
+  favorites[name] = {
+    verbose: "",
+    latLng: {},
+    mark: {}
+  };
+});
+
 new Vue({
   router,
   data: {
-    mapObject: "",
+    map: "",
     source: {
       verbose: "",
       latLng: {},
@@ -19,7 +29,7 @@ new Vue({
       latLng: {},
       mark: {}
     },
-    favorites: {},
+    favorites,
     showFavorites: false
   },
   beforeMount() {

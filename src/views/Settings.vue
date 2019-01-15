@@ -34,7 +34,7 @@
       </div>
       <div class="setting">
         <label>
-          <input type="checkbox" v-model="$root.$data.showFavorites" @change="check($event)">
+          <input type="checkbox" v-model="$root.$data.showFavorites" @change="check">
           {{checkText}}
         </label>
       </div>
@@ -62,17 +62,16 @@ export default {
     this.selected = this.values[1];
   },
   methods: {
-    check: function(e) {
-      const show = this.$root.$data.showFavorites;
-      const map = this.$root.$data.mapObject;
-      const favorites = this.$root.$data.favorites;
-
+    check() {
+      const { showFavorites, map, favorites } = this.$root.$data;
       for (const favName in favorites) {
         const fav = favorites[favName];
-        if (show) {
-          fav.mark.addTo(map);
-        } else {
-          map.removeLayer(fav.mark);
+        if (Object.keys(fav.mark).length !== 0) {
+          if (showFavorites) {
+            fav.mark.addTo(map);
+          } else {
+            map.removeLayer(fav.mark);
+          }
         }
       }
     },

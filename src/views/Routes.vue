@@ -8,7 +8,7 @@
     >
       <div class="top">
         <div class="left">
-          <p>{{source}}</p>
+          <p>{{$root.$data.source.verbose}}</p>
           <p>{{route.from}}</p>
         </div>
         <div class="middle">
@@ -16,7 +16,7 @@
           <p>{{route.duration}}</p>
         </div>
         <div class="right">
-          <p>{{destination}}</p>
+          <p>{{$root.$data.destination.verbose}}</p>
           <p>{{route.to}}</p>
         </div>
       </div>
@@ -47,8 +47,6 @@ import { format, addSeconds, distanceInWords } from "date-fns";
 export default {
   data() {
     return {
-      source: "",
-      destination: "",
       error: false,
       routes: [],
       selected: 0,
@@ -85,11 +83,9 @@ export default {
       this.fitRoute(0);
     },
     fitRoute(padding) {
-      const markers = new L.featureGroup([
-        this.$root.$data.source.mark,
-        this.$root.$data.destination.mark
-      ]);
-      this.$root.$data.mapObject.fitBounds(markers.getBounds().pad(padding));
+      const { map, source, destination } = this.$root.$data;
+      const markers = new L.featureGroup([source.mark, destination.mark]);
+      map.fitBounds(markers.getBounds().pad(padding));
     },
     goBack(e) {
       if (this.choiceMade) {
@@ -100,18 +96,12 @@ export default {
     }
   },
   mounted() {
-    const map = this.$root.$data.mapObject;
-
-    this.source = this.$root.$data.source.verbose;
-    this.destination = this.$root.$data.destination.verbose;
+    const { map, source, destination } = this.$root.$data;
 
     const vm = this;
 
     vm.control = L.Routing.control({
-      waypoints: [
-        this.$root.$data.source.latLng,
-        this.$root.$data.destination.latLng
-      ],
+      waypoints: [source.latLng, destination.latLng],
       router: L.Routing.mapbox(process.env.VUE_APP_API_KEY),
       lineOptions: {
         addWaypoints: false,

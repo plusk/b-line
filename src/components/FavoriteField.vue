@@ -26,29 +26,24 @@ export default {
   },
   methods: {
     setFavorite() {
-      const favorites = this.$root.$data.favorites;
       const vm = this;
-      if (!(vm.name in favorites)) {
-        this.geocodeLookup(vm.verbose, vm.name).then(({ latLng, mark }) => {
-          vm.$set(favorites, vm.name, {
-            verbose: vm.verbose,
-            latLng,
-            mark
-          });
-        });
-      } else {
-        this.$root.$data.mapObject.removeLayer(favorites[vm.name].mark);
-        this.geocodeLookup(vm.verbose, vm.name).then(({ latLng, mark }) => {
-          favorites[vm.name] = {
-            verbose: vm.verbose,
-            latLng,
-            mark
-          };
-        });
+      const { map, favorites } = vm.$root.$data;
+      const mark = favorites[vm.name].mark;
+
+      if (Object.keys(mark).length !== 0) {
+        map.removeLayer(mark);
       }
+
+      this.geocodeLookup(vm.verbose, vm.name).then(({ latLng, mark }) => {
+        favorites[vm.name] = {
+          verbose: vm.verbose,
+          latLng,
+          mark
+        };
+      });
     },
     geocodeLookup(location, name) {
-      const map = this.$root.$data.mapObject;
+      const { map, showFavorites } = this.$root.$data;
       return fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
@@ -60,12 +55,12 @@ export default {
             result.features[0].center[1],
             result.features[0].center[0]
           );
-          map.panTo(latLng);
           const mark = L.marker(latLng, {
             title: name
           });
-          if (this.$root.$data.showFavorites) {
+          if (showFavorites) {
             mark.addTo(map);
+            map.panTo(latLng);
           }
           return {
             latLng,
