@@ -2,12 +2,17 @@
   <div class="wrapper">
     <div class="container">
       <h2>Search</h2>
-      <input type="search" placeholder="Where from?" v-model="source" @keyup.enter="setSource">
+      <input
+        type="search"
+        placeholder="Where from?"
+        v-model="source"
+        @keyup.enter="panToResult(source, true)"
+      >
       <input
         type="search"
         placeholder="Where to?"
         v-model="destination"
-        @keyup.enter="setDestination"
+        @keyup.enter="panToResult(destination, false)"
       >
       <router-link to="/routes">
         <button>Go</button>
@@ -31,15 +36,8 @@ export default {
     this.destination = this.$root.$data.destination.verbose;
   },
   methods: {
-    setSource() {
-      this.panToResult(this.source, true);
-      this.$root.$data.source.verbose = this.source;
-    },
-    setDestination() {
-      this.panToResult(this.destination, false);
-      this.$root.$data.destination.verbose = this.destination;
-    },
     panToResult(location, isSource) {
+      const map = this.$root.$data.map;
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
@@ -51,16 +49,26 @@ export default {
             result.features[0].center[1],
             result.features[0].center[0]
           );
-          this.$root.$data.mapObject.panTo(latLng);
+          map.panTo(latLng);
           const mark = L.marker(latLng);
-          mark.addTo(this.$root.$data.mapObject);
+          mark.addTo(map);
+
+          let target;
           if (isSource) {
-            this.$root.$data.source.latLng = latLng;
-            this.$root.$data.source.mark = mark;
+            target = "source";
           } else {
-            this.$root.$data.destination.latLng = latLng;
-            this.$root.$data.destination.mark = mark;
+            target = "destination";
           }
+
+          const oldMark = this.$root.$data[target].mark;
+          if (Object.keys(oldMark).length !== 0) {
+            map.removeLayer(oldMark);
+          }
+          this.$root.$data[target] = {
+            verbose: this[target],
+            latLng,
+            mark
+          };
         });
     }
   }

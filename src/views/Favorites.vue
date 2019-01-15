@@ -3,8 +3,8 @@
     <div class="container">
       <h2>Favorites</h2>
       <favorite-field
-        v-for="field in fields"
-        :key="field.id"
+        v-for="(field, index) in fields"
+        :key="index"
         :name="field.name"
         :icon="field.icon"
         :value="field.value"
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import homeIcon from "@/assets/fav_home.png";
-import workIcon from "@/assets/fav_work.png";
-import schoolIcon from "@/assets/fav_school.png";
-import newIcon from "@/assets/fav_new.png";
+import homeIcon from "@/assets/home_fav.svg";
+import workIcon from "@/assets/work_fav.svg";
+import schoolIcon from "@/assets/school_fav.svg";
+import newIcon from "@/assets/add_fav.svg";
 
 import FavoriteField from "@/components/FavoriteField.vue";
 export default {
@@ -29,28 +29,32 @@ export default {
     return {
       fields: [
         {
-          id: 0,
-          name: "Home",
+          name: "home",
           icon: homeIcon,
-          value: ""
+          value: this.$root.$data.favorites["home"]
+            ? this.$root.$data.favorites["home"].verbose
+            : ""
         },
         {
-          id: 1,
-          name: "Work",
+          name: "work",
           icon: workIcon,
-          value: ""
+          value: this.$root.$data.favorites["work"]
+            ? this.$root.$data.favorites["work"].verbose
+            : ""
         },
         {
-          id: 2,
-          name: "School",
+          name: "school",
           icon: schoolIcon,
-          value: ""
+          value: this.$root.$data.favorites["school"]
+            ? this.$root.$data.favorites["school"].verbose
+            : ""
         },
         {
-          id: 3,
-          name: "New",
+          name: "new",
           icon: newIcon,
-          value: ""
+          value: this.$root.$data.favorites["new"]
+            ? this.$root.$data.favorites["new"].verbose
+            : ""
         }
       ]
     };

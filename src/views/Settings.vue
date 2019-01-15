@@ -9,7 +9,8 @@
         @drop.prevent
       >
         <label class="picker">
-          Select or drop image
+          Select or
+          <br>drop image
           <input
             type="file"
             accept="image/*"
@@ -32,6 +33,12 @@
           </label>
         </div>
       </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" v-model="$root.$data.showFavorites" @change="check">
+          {{checkText}}
+        </label>
+      </div>
     </div>
   </div>
 </template>
@@ -48,13 +55,27 @@ export default {
         "Least walking"
       ],
       selected: "",
-      image: ""
+      image: "",
+      checkText: "Show Favorites on map"
     };
   },
   mounted() {
     this.selected = this.values[1];
   },
   methods: {
+    check() {
+      const { showFavorites, map, favorites } = this.$root.$data;
+      for (const favName in favorites) {
+        const fav = favorites[favName];
+        if (Object.keys(fav.mark).length !== 0) {
+          if (showFavorites) {
+            fav.mark.addTo(map);
+          } else {
+            map.removeLayer(fav.mark);
+          }
+        }
+      }
+    },
     createFile(file) {
       if (!file.type.match("image.*")) {
         alert("Select an image");
@@ -71,7 +92,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 @import "@/common/constants.scss";
@@ -131,6 +151,7 @@ img {
   display: flex;
   text-align: center;
   align-items: center;
+  justify-content: center;
   font-size: 25px;
   font-weight: 300;
   height: 100%;

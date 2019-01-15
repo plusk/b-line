@@ -3,12 +3,12 @@
     <div
       v-for="route in listedRoutes"
       :key="route.id"
-      :class="{ container: true, selected: selected === route.id }"
+      :class="{ container: true, selected: selected === route.id, expanded: selected === route.id && !selectedCollapsed }"
       @click="selectRoute(route.id)"
     >
       <div class="top">
         <div class="left">
-          <p>{{source}}</p>
+          <p>{{$root.$data.source.verbose}}</p>
           <p>{{route.from}}</p>
         </div>
         <div class="middle">
@@ -16,12 +16,12 @@
           <p>{{route.duration}}</p>
         </div>
         <div class="right">
-          <p>{{destination}}</p>
+          <p>{{$root.$data.destination.verbose}}</p>
           <p>{{route.to}}</p>
         </div>
       </div>
       <div v-if="choiceMade" class="success">Enjoy your trip!</div>
-      <div v-else-if="selected === route.id" class="expanded">
+      <div v-else-if="selected === route.id && !selectedCollapsed" class="expanded">
         <div class="vertical-line"></div>
         <div v-for="(point, index) in route.instructions" :key="index" class="instruction">
           <span v-if="point.time" class="time">{{point.time}}</span>
@@ -47,11 +47,10 @@ import { format, addSeconds, distanceInWords } from "date-fns";
 export default {
   data() {
     return {
-      source: "",
-      destination: "",
       error: false,
       routes: [],
       selected: 0,
+      selectedCollapsed: true,
       choiceMade: false,
       control: {}
     };
@@ -66,9 +65,10 @@ export default {
   methods: {
     selectRoute(id) {
       if (id === this.selected && !this.choiceMade) {
-        this.selected = -1;
+        this.selectedCollapsed = !this.selectedCollapsed;
       } else {
         this.selected = id;
+        this.selectedCollapsed = false;
         const selectedRoute = this.control._alternatives.find(
           alt => alt._route.routesIndex === id
         );
@@ -83,11 +83,9 @@ export default {
       this.fitRoute(0);
     },
     fitRoute(padding) {
-      const markers = new L.featureGroup([
-        this.$root.$data.source.mark,
-        this.$root.$data.destination.mark
-      ]);
-      this.$root.$data.mapObject.fitBounds(markers.getBounds().pad(padding));
+      const { map, source, destination } = this.$root.$data;
+      const markers = new L.featureGroup([source.mark, destination.mark]);
+      map.fitBounds(markers.getBounds().pad(padding));
     },
     goBack(e) {
       if (this.choiceMade) {
@@ -98,18 +96,12 @@ export default {
     }
   },
   mounted() {
-    const map = this.$root.$data.mapObject;
-
-    this.source = this.$root.$data.source.verbose;
-    this.destination = this.$root.$data.destination.verbose;
+    const { map, source, destination } = this.$root.$data;
 
     const vm = this;
 
     vm.control = L.Routing.control({
-      waypoints: [
-        this.$root.$data.source.latLng,
-        this.$root.$data.destination.latLng
-      ],
+      waypoints: [source.latLng, destination.latLng],
       router: L.Routing.mapbox(process.env.VUE_APP_API_KEY),
       lineOptions: {
         addWaypoints: false,
@@ -127,8 +119,7 @@ export default {
           { color: "gold", opacity: 0.5, weight: 2 }
         ]
       },
-      containerClassName: "routing-itinerary-hidden",
-      alternativeClassName: "routing-alternative-route"
+      containerClassName: "routing-itinerary-hidden"
     })
       .addTo(map)
       .on("routesfound", e => {
@@ -161,6 +152,9 @@ export default {
         vm.error = true;
       });
     this.fitRoute(0.25);
+  },
+  destroyed() {
+    this.control.remove();
   }
 };
 </script>
@@ -177,7 +171,7 @@ export default {
   transform: translateX(-50%);
 
   .container {
-    transition: background 0.2s;
+    transition: box-shadow 0.15s;
 
     & > * + * {
       margin: 0;
@@ -207,9 +201,9 @@ export default {
       color: red;
     }
 
-    &:not(.selected):not(.loader):hover {
-      background: darken(white, 5%);
+    &:not(.loader):not(.error):not(.expanded):hover {
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(black, 0.4);
     }
   }
 
@@ -259,16 +253,17 @@ $dotPadding: 20px;
 
   .vertical-line {
     display: block;
-    position: absolute;
+    position: fixed;
     width: 1px;
     background: $dark;
-    height: 100%;
-    left: 50px;
+    height: calc(100% - 210px);
+    left: 80px;
   }
 
   .instruction {
     position: relative;
     margin-top: 5px;
+    min-height: 20px;
 
     &:hover {
       .time,
@@ -276,7 +271,7 @@ $dotPadding: 20px;
         color: $dark;
       }
 
-      .road::before {
+      .time::after {
         background: $accent;
       }
     }
@@ -286,37 +281,52 @@ $dotPadding: 20px;
     }
 
     .time {
-      left: -$dotPadding;
+      position: relative;
       transform: translateX(-100%);
       color: lighten($dark, 50%);
       transition: color 0.1s;
+
+      &::after {
+        position: absolute;
+        display: block;
+        content: "";
+        height: $dotSize;
+        width: $dotSize;
+        background: $dark;
+        right: -$dotSize / 2 * 3;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.05s;
+      }
     }
 
     .road {
       position: absolute;
       margin-left: $dotPadding;
       color: lighten($dark, 10%);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: calc(100% - 100px);
     }
-
-    .road::before {
+  }
+  @media only screen and (min-width: 501px) {
+    overflow-y: auto;
+    max-height: calc(100vh - 199px);
+  }
+  @media only screen and (max-width: 500px) {
+    .vertical-line {
       position: absolute;
-      display: block;
-      content: "";
-      height: $dotSize;
-      width: $dotSize;
-      background: currentColor;
-      left: -$dotSize / 2 * 3;
-      border-radius: 50%;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: background-color 0.05s;
+      left: 50px;
+      height: 100%;
     }
   }
 }
 
 button.forward {
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }

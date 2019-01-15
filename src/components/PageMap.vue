@@ -46,9 +46,16 @@ export default {
     };
   },
   mounted() {
-    const map = this.$refs.pageMap.mapObject;
-    map.zoomControl.remove();
-    this.$root.$data.mapObject = map;
+    const mapObject = this.$refs.pageMap.mapObject;
+    mapObject.zoomControl.remove();
+    this.$root.$data.map = mapObject;
+
+    ["home", "work", "school", "new"].forEach(fav => {
+      this.initializeMark(this.$root.$data.favorites[fav]);
+    });
+    ["source", "destination"].forEach(target =>
+      this.initializeMark(this.$root.$data[target])
+    );
   },
   methods: {
     zoomUpdated(zoom) {
@@ -59,6 +66,17 @@ export default {
     },
     boundsUpdated(bounds) {
       this.bounds = bounds;
+    },
+    initializeMark(obj) {
+      const map = this.$refs.pageMap.mapObject;
+      if (Object.keys(obj.latLng).length !== 0) {
+        map.panTo(obj.latLng);
+        const mark = L.marker(obj.latLng, {
+          title: obj.verbose
+        });
+        mark.addTo(map);
+        obj.mark = mark;
+      }
     }
   }
 };
