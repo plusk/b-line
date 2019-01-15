@@ -2,6 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { stringify, parse } from "flatted/esm";
+import filterConsole from "filter-console";
+
+// Vue and flatted collide, making a whole lot of this appear without any damage
+filterConsole(['Property or method "toJSON" is not defined on the instance']);
 
 Vue.config.productionTip = false;
 
