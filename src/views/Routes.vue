@@ -3,7 +3,7 @@
     <div
       v-for="route in listedRoutes"
       :key="route.id"
-      :class="{ container: true, selected: selected === route.id }"
+      :class="{ container: true, selected: selected === route.id, expanded: selected === route.id && !selectedCollapsed }"
       @click="selectRoute(route.id)"
     >
       <div class="top">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div v-if="choiceMade" class="success">Enjoy your trip!</div>
-      <div v-else-if="selected === route.id" class="expanded">
+      <div v-else-if="selected === route.id && !selectedCollapsed" class="expanded">
         <div class="vertical-line"></div>
         <div v-for="(point, index) in route.instructions" :key="index" class="instruction">
           <span v-if="point.time" class="time">{{point.time}}</span>
@@ -52,6 +52,7 @@ export default {
       error: false,
       routes: [],
       selected: 0,
+      selectedCollapsed: true,
       choiceMade: false,
       control: {}
     };
@@ -66,9 +67,10 @@ export default {
   methods: {
     selectRoute(id) {
       if (id === this.selected && !this.choiceMade) {
-        this.selected = -1;
+        this.selectedCollapsed = !this.selectedCollapsed;
       } else {
         this.selected = id;
+        this.selectedCollapsed = false;
         const selectedRoute = this.control._alternatives.find(
           alt => alt._route.routesIndex === id
         );
@@ -179,7 +181,7 @@ export default {
   transform: translateX(-50%);
 
   .container {
-    transition: background 0.2s;
+    transition: box-shadow 0.15s;
 
     & > * + * {
       margin: 0;
@@ -209,9 +211,9 @@ export default {
       color: red;
     }
 
-    &:not(.selected):not(.loader):hover {
-      background: darken(white, 5%);
+    &:not(.loader):not(.error):not(.expanded):hover {
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(black, 0.4);
     }
   }
 
@@ -313,6 +315,10 @@ $dotPadding: 20px;
       transform: translateY(-50%);
       transition: background-color 0.05s;
     }
+  }
+  @media only screen and (min-width: 501px) {
+    overflow-y: auto;
+    max-height: calc(100vh - 293px);
   }
 }
 
