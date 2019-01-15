@@ -9,7 +9,8 @@
         @drop.prevent
       >
         <label class="picker">
-          Select or drop image
+          Select or
+          <br>drop image
           <input
             type="file"
             accept="image/*"
@@ -92,7 +93,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
 @import "@/common/constants.scss";
 @import "@/common/palette.scss";
@@ -151,6 +151,7 @@ img {
   display: flex;
   text-align: center;
   align-items: center;
+  justify-content: center;
   font-size: 25px;
   font-weight: 300;
   height: 100%;
