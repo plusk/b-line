@@ -39,6 +39,18 @@ new Vue({
     if (localStorage.destination) {
       this.destination = parse(localStorage.destination);
     }
+    if (localStorage.home) {
+      this.favorites.home = parse(localStorage.home);
+    }
+    if (localStorage.work) {
+      this.favorites.work = parse(localStorage.work);
+    }
+    if (localStorage.school) {
+      this.favorites.school = parse(localStorage.school);
+    }
+    if (localStorage.new) {
+      this.favorites.new = parse(localStorage.new);
+    }
   },
   watch: {
     source(val) {
@@ -46,6 +58,18 @@ new Vue({
     },
     destination(val) {
       localStorage.destination = stringify(val);
+    },
+    "favorites.home"(val) {
+      localStorage.home = stringify(val);
+    },
+    "favorites.work"(val) {
+      localStorage.work = stringify(val);
+    },
+    "favorites.school"(val) {
+      localStorage.school = stringify(val);
+    },
+    "favorites.new"(val) {
+      localStorage.new = stringify(val);
     }
   },
   render: h => h(App)

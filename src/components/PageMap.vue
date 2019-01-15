@@ -50,12 +50,12 @@ export default {
     mapObject.zoomControl.remove();
     this.$root.$data.map = mapObject;
 
-    ["source", "destination"].forEach(target =>
-      this.initializeMark(this.$root.$data[target])
-    );
     ["home", "work", "school", "new"].forEach(fav => {
       this.initializeMark(this.$root.$data.favorites[fav]);
     });
+    ["source", "destination"].forEach(target =>
+      this.initializeMark(this.$root.$data[target])
+    );
   },
   methods: {
     zoomUpdated(zoom) {
