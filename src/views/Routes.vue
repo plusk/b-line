@@ -253,16 +253,17 @@ $dotPadding: 20px;
 
   .vertical-line {
     display: block;
-    position: absolute;
+    position: fixed;
     width: 1px;
     background: $dark;
-    height: 100%;
-    left: 50px;
+    height: calc(100% - 210px);
+    left: 80px;
   }
 
   .instruction {
     position: relative;
     margin-top: 5px;
+    min-height: 20px;
 
     &:hover {
       .time,
@@ -270,7 +271,7 @@ $dotPadding: 20px;
         color: $dark;
       }
 
-      .road::before {
+      .time::after {
         background: $accent;
       }
     }
@@ -280,41 +281,52 @@ $dotPadding: 20px;
     }
 
     .time {
-      left: -$dotPadding;
+      position: relative;
       transform: translateX(-100%);
       color: lighten($dark, 50%);
       transition: color 0.1s;
+
+      &::after {
+        position: absolute;
+        display: block;
+        content: "";
+        height: $dotSize;
+        width: $dotSize;
+        background: $dark;
+        right: -$dotSize / 2 * 3;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.05s;
+      }
     }
 
     .road {
       position: absolute;
       margin-left: $dotPadding;
       color: lighten($dark, 10%);
-    }
-
-    .road::before {
-      position: absolute;
-      display: block;
-      content: "";
-      height: $dotSize;
-      width: $dotSize;
-      background: currentColor;
-      left: -$dotSize / 2 * 3;
-      border-radius: 50%;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: background-color 0.05s;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: calc(100% - 100px);
     }
   }
   @media only screen and (min-width: 501px) {
     overflow-y: auto;
-    max-height: calc(100vh - 293px);
+    max-height: calc(100vh - 199px);
+  }
+  @media only screen and (max-width: 500px) {
+    .vertical-line {
+      position: absolute;
+      left: 50px;
+      height: 100%;
+    }
   }
 }
 
 button.forward {
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
