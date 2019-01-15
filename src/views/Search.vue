@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     panToResult(location, isSource) {
-      const map = this.$root.$data.mapObject;
+      const map = this.$root.$data.map;
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
@@ -52,27 +52,23 @@ export default {
           map.panTo(latLng);
           const mark = L.marker(latLng);
           mark.addTo(map);
+
+          let target;
           if (isSource) {
-            const oldSource = this.$root.$data.source.mark;
-            if (oldSource) {
-              map.removeLayer(oldSource);
-            }
-            this.$root.$data.source = {
-              latLng,
-              mark,
-              verbose: this.source
-            };
+            target = "source";
           } else {
-            const oldDestination = this.$root.$data.destination.mark;
-            if (oldDestination) {
-              map.removeLayer(oldDestination);
-            }
-            this.$root.$data.destination = {
-              latLng,
-              mark,
-              verbose: this.destination
-            };
+            target = "destination";
           }
+
+          const oldMark = this.$root.$data[target].mark;
+          if (Object.keys(oldMark).length !== 0) {
+            map.removeLayer(oldMark);
+          }
+          this.$root.$data[target] = {
+            verbose: this[target],
+            latLng,
+            mark
+          };
         });
     }
   }
