@@ -32,6 +32,12 @@
           </label>
         </div>
       </div>
+      <div class="setting">
+        <label>
+          <input type="checkbox" v-model="$root.$data.showFavorites" @change="check($event)">
+          {{checkText}}
+        </label>
+      </div>
     </div>
   </div>
 </template>
@@ -48,13 +54,28 @@ export default {
         "Least walking"
       ],
       selected: "",
-      image: ""
+      image: "",
+      checkText: "Show Favorites on map"
     };
   },
   mounted() {
     this.selected = this.values[1];
   },
   methods: {
+    check: function(e) {
+      const show = this.$root.$data.showFavorites;
+      const map = this.$root.$data.mapObject;
+      const favorites = this.$root.$data.favorites;
+
+      for (const favName in favorites) {
+        const fav = favorites[favName];
+        if (show) {
+          fav.mark.addTo(map);
+        } else {
+          map.removeLayer(fav.mark);
+        }
+      }
+    },
     createFile(file) {
       if (!file.type.match("image.*")) {
         alert("Select an image");

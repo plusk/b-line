@@ -19,7 +19,8 @@ new Vue({
       latLng: {},
       mark: {}
     },
-    favorites: {}
+    favorites: {},
+    showFavorites: false
   },
   beforeMount() {
     if (localStorage.source) {
