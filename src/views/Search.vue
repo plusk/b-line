@@ -18,9 +18,7 @@
         v-model="destination"
         @keyup.enter="panToResult(destination, false)"
       >
-      <router-link to="/routes">
-        <button>Go</button>
-      </router-link>
+      <button @click="panAllResults">Go</button>
       <div v-if="error" class="container error">
         <p>Map options not available, as no API key was found. You can get a Mapbox API key here: https://www.mapbox.com/signup/. 
           It's limited to a couple of thousand requests per day. When you have your key, make a file named `.env.local` at the root of the project,
@@ -33,7 +31,6 @@
 
 <script>
 import L from "leaflet";
-
 import ErrorContainer from "@/components/ErrorContainer.vue";
 
 export default {
@@ -52,7 +49,7 @@ export default {
     this.destination = this.$root.$data.destination.verbose;
   },
   methods: {
-    panToResult(location, isSource) {
+    async panToResult(location, isSource) {
       const map = this.$root.$data.map;
       if (process.env.VUE_APP_API_KEY == null){
         this.error = true;
@@ -89,6 +86,11 @@ export default {
             mark
           };
         });
+    },
+    async panAllResults(){
+      await this.panToResult(this.source, true);
+      await this.panToResult(this.destination, false);
+      this.$router.push("routes");
     },
     speech() {
       if ("speechSynthesis" in window) {

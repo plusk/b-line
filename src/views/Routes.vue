@@ -87,14 +87,15 @@ export default {
     }
   },
   mounted() {
+    const { map, source, destination } = this.$root.$data;
+    const vm = this;
+
     this.$router.push({
       name: "routes",
       path: "/routes",
-      query: this.query });
-
-    const { map, source, destination } = this.$root.$data;
-
-    const vm = this;
+      query: this.query 
+      }
+    );
 
     vm.control = L.Routing.control({
       waypoints: [source.latLng, destination.latLng],

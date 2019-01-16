@@ -5,6 +5,7 @@
       type="text"
       v-model="verbose"
       v-bind:placeholder="name + ' address'"
+      @change="sendData"
       @keyup.enter="setFavorite"
     >
   </div>
@@ -17,7 +18,8 @@ export default {
   props: {
     name: String,
     icon: String,
-    value: String
+    value: String,
+    updateData: Function
   },
   data() {
     return {
@@ -25,6 +27,9 @@ export default {
     };
   },
   methods: {
+    sendData() {
+      this.updateData(this.name, this.verbose)
+    },
     setFavorite() {
       const vm = this;
       const { map, favorites } = vm.$root.$data;

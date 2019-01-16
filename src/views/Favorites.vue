@@ -5,15 +5,17 @@
       <h2>Favorites</h2>
       <favorite-field 
         v-for="(field, index) in fields"
+        ref="fields"
         :key="index"
         :name="field.name"
         :icon="field.icon"
         :value="field.value"
+        :updateData="updateData"
       />
-      <button @click="save">Save</button>
-      <div v-if="show" class="container">
-        <p> Succesively saved! </p>
+      <div v-if="showSuccess">
+        <p>Succesfully saved!</p>
       </div>
+      <button @click="save">Save</button>
     </div>
   </div>
 </template>
@@ -23,7 +25,6 @@ import homeIcon from "@/assets/fav_home.svg";
 import workIcon from "@/assets/fav_work.svg";
 import schoolIcon from "@/assets/fav_school.svg";
 import newIcon from "@/assets/fav_new.svg";
-
 import ErrorContainer from "@/components/ErrorContainer.vue";
 import FavoriteField from "@/components/FavoriteField.vue";
 
@@ -64,23 +65,32 @@ export default {
             : ""
         }
       ],
-      show: false
+      showSuccess: false
     };
   },
   methods: {
-    save: function(event){
-      this.show= true;
-      var favorites = this; 
-                 // so you could use it in a callback function. You have
-                 // to do that because it has its own `this` defined
+    save(){
+      this.$refs.fields.forEach((field) => {
+        if(field.verbose){
+          field.setFavorite()
+        }
+      })
+      this.showSuccess = true;
+      var vm = this; 
       setTimeout(function() {
-          favorites.show = false;
+          vm.showSuccess = false;
       }, 5 * 1000);
+    },
+    updateData(name, value, callback) {
+      this.fields.forEach(field => {
+        if(field.name===name){
+          field.value = value;
+        }
+      })
     }
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 @import "@/common/constants.scss";

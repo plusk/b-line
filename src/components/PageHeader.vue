@@ -4,6 +4,7 @@
     <h1>B-Line</h1>
     <nav>
       <router-link class="route" to="/">Home</router-link>
+      <router-link class="route" to="/map">Map</router-link>
       <router-link class="route" to="/favorites">Favorites</router-link>
       <router-link class="route" to="/Settings">Settings</router-link>
     </nav>
