@@ -31,7 +31,7 @@
       </div>
     </div>
     <div v-if="error" class="container error">
-      <p>No routes found between {{source}} and {{destination}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
+      <p>No routes found between {{$root.$data.source.verbose}} and {{$root.$data.destination.verbose}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
     </div>
     <div v-else-if="routes.length === 0" class="container loader">
       <div class="spinner"></div>
