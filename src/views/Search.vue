@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
+    <error-container></error-container>
     <div class="container">
-      <button id="speech" class="speech-button" @click="speech"><img src="../assets/sound.svg"></button>
+      <button id="speech" class="speech-button" @click="speech">
+        <img src="../assets/sound.svg">
+      </button>
       <h2>Search</h2>
       <input
         type="search"
@@ -31,7 +34,12 @@
 <script>
 import L from "leaflet";
 
+import ErrorContainer from "@/components/ErrorContainer.vue";
+
 export default {
+  components: {
+    ErrorContainer
+  },
   data() {
     return {
       source: "",
@@ -80,7 +88,6 @@ export default {
             latLng,
             mark
           };
-          this.error = false;
         });
     },
     speech() {
