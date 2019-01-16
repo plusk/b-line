@@ -1,7 +1,9 @@
 <template>
   <div :class="{ wrapper: true, choiceMade }">
     <error-container>
-      <p>No routes found between {{$root.$data.source.verbose}} and {{$root.$data.destination.verbose}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
+      <p
+        v-if="error"
+      >No routes found between {{$root.$data.source.verbose}} and {{$root.$data.destination.verbose}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
     </error-container>
     <div v-if="!error && routes.length === 0" class="container loader">
       <div class="spinner"></div>

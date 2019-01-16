@@ -1,5 +1,5 @@
 <template>
-  <div class="container error">
+  <div class="container error" v-if="keyError || $slots.default">
     <p v-if="keyError">
       Map options not available, as no API key was found. You need to get a
       <a

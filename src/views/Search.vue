@@ -47,7 +47,6 @@ export default {
   methods: {
     panToResult(location, isSource) {
       const map = this.$root.$data.map;
-      console.log("key " + process.env.VUE_APP_API_KEY);
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
