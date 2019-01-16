@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <error-container></error-container>
     <div class="container">
       <h2>Settings</h2>
       <div
@@ -44,7 +45,12 @@
 </template>
 
 <script>
+import ErrorContainer from "@/components/ErrorContainer.vue";
+
 export default {
+  components: {
+    ErrorContainer
+  },
   data() {
     return {
       title: "Route Priorities",

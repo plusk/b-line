@@ -1,5 +1,11 @@
 <template>
   <div :class="{ wrapper: true, choiceMade }">
+    <error-container>
+      <p>No routes found between {{$root.$data.source.verbose}} and {{$root.$data.destination.verbose}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
+    </error-container>
+    <div v-if="!error && routes.length === 0" class="container loader">
+      <div class="spinner"></div>
+    </div>
     <div
       v-for="route in listedRoutes"
       :key="route.id"
@@ -30,12 +36,6 @@
         <button class="forward" @click="toggleChoice">&#62;</button>
       </div>
     </div>
-    <div v-if="error" class="container error">
-      <p>No routes found between {{$root.$data.source.verbose}} and {{$root.$data.destination.verbose}}. If these locations are on different continents, the issue may be that our buses cannot cross oceans.</p>
-    </div>
-    <div v-else-if="routes.length === 0" class="container loader">
-      <div class="spinner"></div>
-    </div>
     <button class="back" @click="goBack">&#60;</button>
   </div>
 </template>
@@ -44,7 +44,12 @@
 import L from "leaflet";
 import { format, addSeconds, distanceInWords } from "date-fns";
 
+import ErrorContainer from "@/components/ErrorContainer.vue";
+
 export default {
+  components: {
+    ErrorContainer
+  },
   data() {
     return {
       error: false,
@@ -194,11 +199,6 @@ export default {
         height: 75px;
         animation: spin 2s linear infinite;
       }
-    }
-
-    &.error {
-      display: block;
-      color: red;
     }
 
     &:not(.loader):not(.error):not(.expanded):hover {
