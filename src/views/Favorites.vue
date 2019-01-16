@@ -2,14 +2,17 @@
   <div class="wrapper">
     <div class="container">
       <h2>Favorites</h2>
-      <favorite-field
+      <favorite-field 
         v-for="(field, index) in fields"
         :key="index"
         :name="field.name"
         :icon="field.icon"
         :value="field.value"
       />
-      <button>Save</button>
+      <button @click="save">Save</button>
+      <div v-if="show" class="container">
+        <p> Succesively saved! </p>
+      </div>
     </div>
   </div>
 </template>
@@ -56,8 +59,20 @@ export default {
             ? this.$root.$data.favorites["new"].verbose
             : ""
         }
-      ]
+      ],
+      show: false
     };
+  },
+  methods: {
+    save: function(event){
+      this.show= true;
+      var favorites = this; 
+                 // so you could use it in a callback function. You have
+                 // to do that because it has its own `this` defined
+      setTimeout(function() {
+          favorites.show = false;
+      }, 5 * 1000);
+    }
   }
 };
 </script>
