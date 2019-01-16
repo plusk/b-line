@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <error-container></error-container>
     <div class="container">
       <h2>Favorites</h2>
       <favorite-field
@@ -15,14 +16,17 @@
 </template>
 
 <script>
-import homeIcon from "@/assets/home_fav.svg";
-import workIcon from "@/assets/work_fav.svg";
-import schoolIcon from "@/assets/school_fav.svg";
-import newIcon from "@/assets/add_fav.svg";
+import homeIcon from "@/assets/fav_home.svg";
+import workIcon from "@/assets/fav_work.svg";
+import schoolIcon from "@/assets/fav_school.svg";
+import newIcon from "@/assets/fav_new.svg";
 
+import ErrorContainer from "@/components/ErrorContainer.vue";
 import FavoriteField from "@/components/FavoriteField.vue";
+
 export default {
   components: {
+    ErrorContainer,
     FavoriteField
   },
   data() {

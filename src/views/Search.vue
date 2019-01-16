@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
+    <error-container></error-container>
     <div class="container">
-      <button id="speech" class="speech-button" @click="speech"><img src="../assets/sound.svg"></button>
+      <button id="speech" class="speech-button" @click="speech">
+        <img src="../assets/sound.svg">
+      </button>
       <h2>Search</h2>
       <input
         type="search"
@@ -18,12 +21,6 @@
       <router-link to="/routes">
         <button>Go</button>
       </router-link>
-      <div v-if="error" class="container error">
-        <p>Map options not available, as no API key was found. You need to get a Mapbox API key (https://www.mapbox.com/signup/). 
-          It's limited to a couple of thousand requests per day. When you have your key, make a file named `.env.local` at the root of the project,
-          then add the following line to the file: `VUE_APP_API_KEY="INSERT YOUR KEY HERE"` 
-        </p>
-      </div>
     </div>
   </div>
 </template>
@@ -31,12 +28,16 @@
 <script>
 import L from "leaflet";
 
+import ErrorContainer from "@/components/ErrorContainer.vue";
+
 export default {
+  components: {
+    ErrorContainer
+  },
   data() {
     return {
       source: "",
-      destination: "",
-      error: false,
+      destination: ""
     };
   },
   mounted() {
@@ -46,10 +47,6 @@ export default {
   methods: {
     panToResult(location, isSource) {
       const map = this.$root.$data.map;
-      console.log("key " + process.env.VUE_APP_API_KEY);
-      if (process.env.VUE_APP_API_KEY == null){
-        this.error = true;
-      }
       fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${
           process.env.VUE_APP_API_KEY
@@ -81,7 +78,6 @@ export default {
             latLng,
             mark
           };
-          this.error = false;
         });
     },
     speech() {
