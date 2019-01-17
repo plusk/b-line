@@ -27,6 +27,11 @@ export default new Router({
       path: "/routes",
       name: "routes",
       component: () => import("./views/Routes.vue")
+    },
+    {
+      path: "/map",
+      name: "map",
+      //component: () => import("./components/PageMap.vue")
     }
   ]
 });

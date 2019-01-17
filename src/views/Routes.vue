@@ -41,7 +41,8 @@ export default {
       selected: 0,
       selectedCollapsed: true,
       choiceMade: false,
-      control: {}
+      control: {},
+      query: {source: this.$root.$data.source.verbose, destination: this.$root.$data.destination.verbose}
     };
   },
   computed: {
@@ -80,14 +81,21 @@ export default {
       if (this.choiceMade) {
         this.toggleChoice(e);
       } else {
+        history.back();
         this.$router.go(-1);
       }
     }
   },
   mounted() {
     const { map, source, destination } = this.$root.$data;
-
     const vm = this;
+
+    this.$router.push({
+      name: "routes",
+      path: "/routes",
+      query: this.query 
+      }
+    );
 
     vm.control = L.Routing.control({
       waypoints: [source.latLng, destination.latLng],
