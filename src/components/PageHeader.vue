@@ -93,8 +93,12 @@ nav {
     height: $headerHeightMobile;
   }
 
+  img {
+    height: 80%;
+  }
+
   h1 {
-    font-size: 30px;
+    font-size: 24px;
   }
 
   nav > * + * {

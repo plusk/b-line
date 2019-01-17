@@ -87,11 +87,11 @@ $dotPadding: 20px;
 
   .vertical-line {
     display: block;
-    position: fixed;
+    position: absolute;
     width: 1px;
     background: $dark;
-    height: calc(100% - 210px);
-    left: 80px;
+    height: 100%;
+    left: 50px;
   }
 
   .instruction {
@@ -148,13 +148,6 @@ $dotPadding: 20px;
   @media only screen and (min-width: 501px) {
     overflow-y: auto;
     max-height: calc(100vh - 199px);
-  }
-  @media only screen and (max-width: 500px) {
-    .vertical-line {
-      position: absolute;
-      left: 50px;
-      height: 100%;
-    }
   }
 }
 

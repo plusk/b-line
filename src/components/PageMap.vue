@@ -100,6 +100,7 @@ export default {
     box-sizing: border-box;
     top: 0;
     min-height: 50vh;
+    height: 100% !important;
   }
 }
 </style>

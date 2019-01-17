@@ -30,8 +30,7 @@ export default new Router({
     },
     {
       path: "/map",
-      name: "map",
-      //component: () => import("./components/PageMap.vue")
+      name: "map"
     }
   ]
 });

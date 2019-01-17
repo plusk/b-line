@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     sendData() {
-      this.updateData(this.name, this.verbose)
+      this.updateData(this.name, this.verbose);
     },
     setFavorite() {
       const vm = this;

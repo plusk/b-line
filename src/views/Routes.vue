@@ -42,7 +42,10 @@ export default {
       selectedCollapsed: true,
       choiceMade: false,
       control: {},
-      query: {source: this.$root.$data.source.verbose, destination: this.$root.$data.destination.verbose}
+      query: {
+        source: this.$root.$data.source.verbose,
+        destination: this.$root.$data.destination.verbose
+      }
     };
   },
   computed: {
@@ -93,9 +96,8 @@ export default {
     this.$router.push({
       name: "routes",
       path: "/routes",
-      query: this.query 
-      }
-    );
+      query: this.query
+    });
 
     vm.control = L.Routing.control({
       waypoints: [source.latLng, destination.latLng],

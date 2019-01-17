@@ -20,9 +20,10 @@
       >
       <button @click="panAllResults">Go</button>
       <div v-if="error" class="container error">
-        <p>Map options not available, as no API key was found. You can get a Mapbox API key here: https://www.mapbox.com/signup/. 
+        <p>
+          Map options not available, as no API key was found. You can get a Mapbox API key here: https://www.mapbox.com/signup/.
           It's limited to a couple of thousand requests per day. When you have your key, make a file named `.env.local` at the root of the project,
-          then add the following line to the file: `VUE_APP_API_KEY="INSERT YOUR KEY HERE"` 
+          then add the following line to the file: `VUE_APP_API_KEY="INSERT YOUR KEY HERE"`
         </p>
       </div>
     </div>
@@ -51,7 +52,7 @@ export default {
   methods: {
     async panToResult(location, isSource) {
       const map = this.$root.$data.map;
-      if (process.env.VUE_APP_API_KEY == null){
+      if (process.env.VUE_APP_API_KEY == null) {
         this.error = true;
       }
       fetch(
@@ -87,7 +88,7 @@ export default {
           };
         });
     },
-    async panAllResults(){
+    async panAllResults() {
       await this.panToResult(this.source, true);
       await this.panToResult(this.destination, false);
       this.$router.push("routes");

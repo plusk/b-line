@@ -3,7 +3,7 @@
     <error-container></error-container>
     <div class="container">
       <h2>Favorites</h2>
-      <favorite-field 
+      <favorite-field
         v-for="(field, index) in fields"
         ref="fields"
         :key="index"
@@ -69,24 +69,24 @@ export default {
     };
   },
   methods: {
-    save(){
-      this.$refs.fields.forEach((field) => {
-        if(field.verbose){
-          field.setFavorite()
+    save() {
+      this.$refs.fields.forEach(field => {
+        if (field.verbose) {
+          field.setFavorite();
         }
-      })
+      });
       this.showSuccess = true;
-      var vm = this; 
+      var vm = this;
       setTimeout(function() {
-          vm.showSuccess = false;
+        vm.showSuccess = false;
       }, 5 * 1000);
     },
-    updateData(name, value, callback) {
+    updateData(name, value) {
       this.fields.forEach(field => {
-        if(field.name===name){
+        if (field.name === name) {
           field.value = value;
         }
-      })
+      });
     }
   }
 };
