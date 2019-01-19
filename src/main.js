@@ -55,6 +55,9 @@ new Vue({
     if (localStorage.new) {
       this.favorites.new = parse(localStorage.new);
     }
+    if (localStorage.showFavorites) {
+      this.showFavorites = parse(localStorage.showFavorites);
+    }
   },
   watch: {
     source(val) {
@@ -74,6 +77,9 @@ new Vue({
     },
     "favorites.new"(val) {
       localStorage.new = stringify(val);
+    },
+    showFavorites(val) {
+      localStorage.showFavorites = stringify(val);
     }
   },
   render: h => h(App)
