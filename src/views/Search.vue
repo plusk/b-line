@@ -46,8 +46,29 @@ export default {
     };
   },
   mounted() {
+    const vm = this;
+
     this.source = this.$root.$data.source.verbose;
     this.destination = this.$root.$data.destination.verbose;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const latLng = new L.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+
+        vm.$root.$data.map.panTo(latLng);
+        const mark = L.marker(latLng);
+        mark.addTo(vm.$root.$data.map);
+        vm.$root.$data.source = {
+          verbose: "Here",
+          latLng,
+          mark
+        };
+        vm.source = "Here";
+      });
+    }
   },
   methods: {
     async panToResult(location, isSource) {
